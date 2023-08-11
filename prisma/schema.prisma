@@ -8,9 +8,43 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Grupo {
+model User {
   id        String   @id @default(uuid())
-  name      String
+  email     String   @unique
+  password  String
+  role      ROLE     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Grupo {
+  id         String      @id @default(uuid())
+  name       String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  misioneros Misionero[] @relation("MisioneroToGrupo")
+}
+
+model Misionero {
+  id              String   @id @default(uuid())
+  name            String
+  apellido        String
+  email           String
+  numeroAlumno    String
+  edad            String
+  tipoDocumento   String
+  numeroDocumento String
+  carrera         String
+  numeroTelefono  String
+  grupoId         String?
+  grupo           Grupo?   @relation("MisioneroToGrupo", fields: [grupoId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([grupoId])
+}
+
+enum ROLE {
+  ADMIN
+  USER
 }
