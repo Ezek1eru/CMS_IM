@@ -3,18 +3,22 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id        String   @id @default(uuid())
+  name      String
   email     String   @unique
   password  String
-  role      ROLE     @default(USER)
+  userRole  ROLE     @default(USER)
+  grupoId   String?
+  grupo     Grupo?   @relation("UserToGrupo", fields: [grupoId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([grupoId])
 }
 
 model Grupo {
@@ -23,6 +27,10 @@ model Grupo {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   misioneros Misionero[] @relation("MisioneroToGrupo")
+  usuarios   User[]      @relation("UserToGrupo")
+  userId     String?
+
+  @@index([userId])
 }
 
 model Misionero {

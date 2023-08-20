@@ -23,16 +23,6 @@ const MainNav = ({
       label: 'Misioneros',
       active: pathname === '/misioneros',
     },
-    {
-      href: '/salidas',
-      label: 'Salidas',
-      active: pathname === '/salidas',
-    },
-    {
-      href: '/usuarios',
-      label: 'Usuarios',
-      active: pathname === '/usuarios',
-    },
   ];
 
   return (
