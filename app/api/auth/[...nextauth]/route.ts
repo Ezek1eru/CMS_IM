@@ -71,13 +71,12 @@ export const authOptions: NextAuthOptions = {
         }, 
         jwt: ({token, user}) => {
             if(user){
-                const u = user as unknown as any
                 return {
                     ...token, 
-                    id: u.id, 
-                    name: u.name,
-                    email: u.email,
-                    role: u.role,
+                    id: user.id, 
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
                 }
             }
             return token
