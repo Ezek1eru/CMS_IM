@@ -2,7 +2,7 @@ import prismadb from "@/lib/prismdb";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const {hash, verify, expired} = require('credentials')
+const { hash, verify } = require('credentials')
 
 export const authOptions: NextAuthOptions = {
         session: {
@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
                 }
             },
             
-            async authorize(credentials ) {
+            async authorize(credentials) {
                 if(!credentials?.email || !credentials.password){
                     return null;
                 }
@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 const isPasswordValid = await verify(
-                    credentials.password,
+                    hash(credentials.password),
                     user.password
                 )
 
@@ -54,6 +54,7 @@ export const authOptions: NextAuthOptions = {
                     role: user.userRole,
                 }
             }
+
         })
     ], 
     callbacks:{ 

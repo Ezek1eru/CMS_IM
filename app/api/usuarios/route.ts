@@ -39,13 +39,13 @@ export async function POST(
     }
 
 
-    const hashedPassword = await hash(password);
+    const hashpassword = await hash(password);
 
     const users = await prismadb.user.create({
       data: {
         name,
         email,
-        hashedPassword,
+        password: hashpassword,
         userRole,
         grupoId
       }
