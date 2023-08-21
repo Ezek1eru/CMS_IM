@@ -1,7 +1,8 @@
-import brcypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismdb';
+
+const {hash} = require('credentials')
 
 export async function POST(
   req: Request,
@@ -38,7 +39,7 @@ export async function POST(
     }
 
 
-    const hashedPassword = await brcypt.hash(password, 10);
+    const hashedPassword = await hash(password);
 
     const users = await prismadb.user.create({
       data: {

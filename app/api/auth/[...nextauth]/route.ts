@@ -1,7 +1,8 @@
 import prismadb from "@/lib/prismdb";
-import { compare } from "bcrypt";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+const {hash, verify, expired} = require('credentials')
 
 export const authOptions: NextAuthOptions = {
         session: {
@@ -37,7 +38,7 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                const isPasswordValid = await compare(
+                const isPasswordValid = await verify(
                     credentials.password,
                     user.password
                 )
