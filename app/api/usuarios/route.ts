@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import prismadb from '@/lib/prismdb';
+import prismadb from '@/lib/prismadb';
 
 const {hash} = require('credentials')
 

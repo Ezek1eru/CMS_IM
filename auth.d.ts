@@ -2,10 +2,12 @@ import "next-auth";
 
 declare module "next-auth" {
   interface User {
-    role: number
+    id: string
+    role: ROLE
   }
 
   interface JWT {
-    role: number
+    id: string
+    role: ROLE
   }
 }

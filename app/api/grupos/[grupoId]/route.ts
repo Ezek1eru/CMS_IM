@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import prismadb from "@/lib/prismdb";
+import prismadb from "@/lib/prismadb";
 
 export async function PATCH(
     req: Request,
@@ -9,7 +9,7 @@ export async function PATCH(
     try {
         const body = await req.json();
 
-        const { name } = body;
+        const { name, misioneroId } = body;
 
         if(!name){
             return new NextResponse("Name is required", {status: 400})
@@ -24,7 +24,8 @@ export async function PATCH(
                 id: params.grupoId,
             }, 
             data: {
-                name
+                name, 
+                misioneroId 
             }
         })
 

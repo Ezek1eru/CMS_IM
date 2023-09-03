@@ -15,11 +15,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { AlertModal } from '@/components/modals/alert-modal';
-import { Copy, Edit, Link, MoreHorizontal, Trash } from 'lucide-react';
-import { GrupoColumn } from './columns';
+import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { MisioneroColumn } from './columns';
 
 interface CellActionProps {
-  data: GrupoColumn;
+  data: MisioneroColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -31,17 +31,17 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success('Grupo Id copied to clipboard');
+    toast.success('Misionero Id copiado al portapapeles.');
   };
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/grupos/${data.id}`);
+      await axios.delete(`/api/misioneros/${data.id}`);
       router.refresh();
-      toast.success('Grupo eliminado.');
+      toast.success('Misionero eliminado.');
     } catch (error) {
-      toast.error('Asegurate de haber borrado los misioneros antes.');
+      toast.error('Algo ha ido mal.');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -65,7 +65,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => router.push(`/grupos/${data.id}`)}>
+          <DropdownMenuItem
+            onClick={() => router.push(`/misioneros/${data.id}`)}
+          >
             <Edit className="mr-2 h-4 w-4 " />
             Update
           </DropdownMenuItem>
@@ -76,10 +78,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
             Delete
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/${data.id}`)}>
-            <Link className="mr-2 h-4 w-4 " />
-            Editar Grupo
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,4 +1,4 @@
-import prismadb from "@/lib/prismdb";
+import prismadb from "@/lib/prismadb";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -15,7 +15,6 @@ export const authOptions: NextAuthOptions = {
                 email: {
                     label: "Email",
                     type: "email",
-                    placeholder: "eze@gmail.com"
                 }, 
                 password: {
                     label: "Password",
@@ -25,7 +24,7 @@ export const authOptions: NextAuthOptions = {
             
             async authorize(credentials) {
                 if(!credentials?.email || !credentials.password){
-                    return null;
+                    return null
                 }
 
                 const user = await prismadb.user.findUnique({
@@ -34,25 +33,20 @@ export const authOptions: NextAuthOptions = {
                     }
                 })
 
-                if(!user){
-                    return null;
-                }
+                if (!user) return null
 
-                const isPasswordValid = await verify(
-                    hash(credentials.password),
-                    user.password
-                )
+                const passwordHashed = hash(credentials.password)
 
-                if(!isPasswordValid){
-                    return null;
-                }
+                const isValid = verify(passwordHashed, user.password)
+
+                if (!isValid) return null
 
                 return {
-                    id: user.id + '',
-                    email: user.email,
+                    id: user.id,
                     name: user.name,
+                    email: user.email,
                     role: user.userRole,
-                }
+                } as any
             }
 
         })

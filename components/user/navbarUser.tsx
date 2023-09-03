@@ -8,24 +8,29 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import MainNav from '@/components/MainNav';
+import MainNav from '@/components/user/MainNav';
 
-import { Globe2, LogOut } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
+import { LogOut } from 'lucide-react';
+import { signOut } from 'next-auth/react';
+import React from 'react';
 
-const Navbar = () => {
-  const { data: session } = useSession();
+interface NavbarUserProps {
+  data: String | undefined;
+}
 
+const NavbarUser: React.FC<NavbarUserProps> = ({ data }) => {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
-        <Globe2 className="h-8 w-8" />
+        <Button className="cursor-pointer" variant="outline">
+          {data}
+        </Button>
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button className="cursor-pointer" variant="outline">
-                {session?.user.name}
+                {/* {session?.user?.name} */}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
@@ -44,4 +49,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarUser;

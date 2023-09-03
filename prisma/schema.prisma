@@ -22,13 +22,14 @@ model User {
 }
 
 model Grupo {
-  id         String      @id @default(uuid())
-  name       String
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  misioneros Misionero[] @relation("MisioneroToGrupo")
-  usuarios   User[]      @relation("UserToGrupo")
-  userId     String?
+  id          String      @id @default(uuid())
+  name        String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  misioneroId String?
+  misioneros  Misionero[] @relation("MisioneroToGrupo")
+  usuarios    User[]      @relation("UserToGrupo")
+  userId      String?
 
   @@index([userId])
 }
