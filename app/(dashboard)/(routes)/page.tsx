@@ -4,7 +4,12 @@ import { getServerSession } from 'next-auth';
 const DashboardPage = async () => {
   const session = await getServerSession(authOptions);
 
-  return <div>Active user: {JSON.stringify(session)}</div>;
+  return (
+    <div>
+      <div>Active user: {JSON.stringify(session)}</div>
+      <div>IdUser: {session?.user?.id}</div>
+    </div>
+  );
 };
 
 export default DashboardPage;
