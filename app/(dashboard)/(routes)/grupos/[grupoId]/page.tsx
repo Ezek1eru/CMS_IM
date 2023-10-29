@@ -1,4 +1,4 @@
-import prismadb from '@/lib/prismdb';
+import prismadb from '@/lib/prismadb';
 import { GrupoForm } from './components/grupo-form';
 
 const BillboardPage = async ({ params }: { params: { grupoId: string } }) => {

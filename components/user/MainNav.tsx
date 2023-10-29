@@ -12,21 +12,18 @@ const MainNav = ({
   const pathname = usePathname();
   const params = useParams();
 
+  const grupo = params.grupoId;
+
   const routes = [
     {
-      href: '/grupos',
-      label: 'Grupos',
-      active: pathname === '/grupos',
-    },
-    {
-      href: '/misioneros',
+      href: `${grupo}/misioneros`,
       label: 'Misioneros',
-      active: pathname === '/misioneros',
+      active: pathname === `${grupo}/misioneros`,
     },
     {
-      href: '/usuarios',
-      label: 'Usuarios',
-      active: pathname === '/Usuarios',
+      href: '/salidas',
+      label: 'Salidas',
+      active: pathname === '/salidas',
     },
   ];
 

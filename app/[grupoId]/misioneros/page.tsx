@@ -5,8 +5,17 @@ import prismadb from '@/lib/prismadb';
 import { MisioneroClient } from './components/client';
 import { MisioneroColumn } from './components/columns';
 
-const GruposPage = async () => {
+const MisionerosGrupoPage = async ({
+  params,
+}: {
+  params: {
+    grupoId: string;
+  };
+}) => {
   const misioneros = await prismadb.misionero.findMany({
+    where: {
+      grupoId: params.grupoId,
+    },
     include: {
       grupo: true,
     },
@@ -39,4 +48,4 @@ const GruposPage = async () => {
   );
 };
 
-export default GruposPage;
+export default MisionerosGrupoPage;

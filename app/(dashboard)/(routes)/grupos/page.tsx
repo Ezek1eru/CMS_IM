@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-import prismadb from '@/lib/prismdb';
+import prismadb from '@/lib/prismadb';
 
 import { GrupoClient } from './components/client';
 import { GrupoColumn } from './components/columns';

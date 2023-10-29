@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google';
 
+import { Providers } from '@/providers/providers';
 import { ToastProvider } from '@/providers/toast-provider';
 
 import './globals.css';
@@ -11,7 +12,7 @@ export const metadata = {
   description: 'Instituto Misionero',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -19,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ToastProvider />
-        {children}
+        <Providers>
+          <ToastProvider />
+          {children}
+        </Providers>
       </body>
     </html>
   );

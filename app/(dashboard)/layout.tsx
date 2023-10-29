@@ -1,6 +1,7 @@
-import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 import Navbar from '@/components/Navbar';
+import { Providers } from '@/providers/providers';
 
 export default function DashboardLayout({
   children,
@@ -9,8 +10,10 @@ export default function DashboardLayout({
 }) {
   return (
     <>
-      <Navbar />
-      {children}
+      <Providers>
+        <Navbar />
+        {children}
+      </Providers>
     </>
   );
 }
