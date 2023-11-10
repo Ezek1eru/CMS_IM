@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
+import { useModal } from '@/hooks/use-modal-store';
 
 import { GrupoColumn, columns } from './columns';
 
@@ -15,6 +16,8 @@ interface GrupoClientProps {
 }
 
 export const GrupoClient: React.FC<GrupoClientProps> = ({ data }) => {
+  const { onOpen } = useModal();
+
   const router = useRouter();
   const params = useParams();
   return (
@@ -24,7 +27,8 @@ export const GrupoClient: React.FC<GrupoClientProps> = ({ data }) => {
           title={`Grupos (${data.length})`}
           description="Administra el grupo misionero"
         />
-        <Button onClick={() => router.push(`/grupos/new`)}>
+
+        <Button onClick={() => onOpen('createGrupo')}>
           <Plus className="mr-2 h-4 w-4" />
           Add new
         </Button>

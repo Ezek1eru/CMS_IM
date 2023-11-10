@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react';
 
 import Navbar from '@/components/Navbar';
-import { Providers } from '@/providers/providers';
+import { Providers } from '@/components/providers/providers';
 
 export default function DashboardLayout({
   children,
