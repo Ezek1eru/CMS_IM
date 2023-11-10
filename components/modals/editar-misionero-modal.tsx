@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useModal } from '@/hooks/use-modal-store';
+import { useEffect } from 'react';
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -46,11 +47,12 @@ const formSchema = z.object({
   numeroTelefono: z.string().min(2).optional(),
 });
 
-export const CreateMisioneroModal = () => {
-  const { isOpen, onClose, type } = useModal();
+export const EditarMisioneroModal = () => {
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === 'crearMisionero';
+  const isModalOpen = isOpen && type === 'editarMisionero';
+  const { misionero } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -67,19 +69,33 @@ export const CreateMisioneroModal = () => {
     },
   });
 
+  useEffect(() => {
+    if (misionero) {
+      form.setValue('name', misionero.name);
+      form.setValue('apellido', misionero.apellido);
+      form.setValue('email', misionero.email);
+      form.setValue('numeroAlumno', misionero.numeroAlumno);
+      form.setValue('edad', misionero.edad);
+      form.setValue('tipoDocumento', misionero.tipoDocumento);
+      form.setValue('numeroDocumento', misionero.numeroDocumento);
+      form.setValue('carrera', misionero.carrera);
+      form.setValue('numeroTelefono', misionero.numeroTelefono);
+    }
+  }, [misionero, form]);
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post(`/api/misioneros`, values);
+      await axios.patch(`/api/misioneros/${misionero?.id}`, values);
 
       form.reset();
 
       router.refresh();
-      toast.success('Misionero creado correctamente');
+      toast.success('Misionero editado correctamente');
       onClose();
     } catch (error) {
-      toast.error('Algo ha ido mal.');
+      toast.error('Algo ha ido mal al editar el misionero');
       console.log(error);
     }
   };
@@ -273,7 +289,7 @@ export const CreateMisioneroModal = () => {
             </div>
             <DialogFooter className="px-6 py-4">
               <Button disabled={isLoading} className="ml-auto" type="submit">
-                Crear
+                Editar
               </Button>
             </DialogFooter>
           </form>

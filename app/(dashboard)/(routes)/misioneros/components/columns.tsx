@@ -14,7 +14,9 @@ export type MisioneroColumn = {
   numeroDocumento: string;
   carrera: string;
   numeroTelefono: string;
-  createdAt: string;
+  grupoId: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export const columns: ColumnDef<MisioneroColumn>[] = [
@@ -40,6 +42,6 @@ export const columns: ColumnDef<MisioneroColumn>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => <CellAction misionero={row.original} />,
   },
 ];
