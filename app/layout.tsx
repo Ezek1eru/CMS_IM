@@ -1,7 +1,8 @@
 import { Inter } from 'next/font/google';
 
-import { Providers } from '@/providers/providers';
-import { ToastProvider } from '@/providers/toast-provider';
+import { ModalProvider } from '@/components/providers/modal-provider';
+import { Providers } from '@/components/providers/providers';
+import { ToastProvider } from '@/components/providers/toast-provider';
 
 import './globals.css';
 
@@ -22,6 +23,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <Providers>
           <ToastProvider />
+          <ModalProvider />
           {children}
         </Providers>
       </body>

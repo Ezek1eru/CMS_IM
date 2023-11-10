@@ -1,10 +1,10 @@
 import { Grupo } from '@prisma/client';
 import { create } from 'zustand';
 
-export type ModalType = 'createGroup' | 'inviteGroup' | 'editGroup';
+export type ModalType = 'createGrupo' | 'editarGrupo';
 
 interface ModalData {
-  group?: Grupo;
+  grupo?: Grupo | undefined;
 }
 
 interface ModalStore {
@@ -19,6 +19,6 @@ export const useModal = create<ModalStore>((set) => ({
   type: null,
   data: {},
   isOpen: false,
-  onOpen: (type, data) => set({ type, data, isOpen: true }),
+  onOpen: (type, data = {}) => set({ type, isOpen: true, data }),
   onClose: () => set({ type: null, isOpen: false }),
 }));
