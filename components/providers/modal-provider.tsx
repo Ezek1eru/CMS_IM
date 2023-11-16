@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { AñadirMisionero } from '@/components/modals/añadir-misionero-modal';
 import { CreateGrupoModal } from '@/components/modals/create-grupo-modal';
 import { CreateMisioneroModal } from '@/components/modals/create-misionero-modal';
 import { EditGrupoModal } from '@/components/modals/edit-grupo-modal';
@@ -22,6 +23,7 @@ export const ModalProvider = () => {
       <EditGrupoModal />
       <CreateMisioneroModal />
       <EditarMisioneroModal />
+      <AñadirMisionero />
     </>
   );
 };

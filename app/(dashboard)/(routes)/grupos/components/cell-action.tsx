@@ -78,7 +78,7 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
             <Trash className="mr-2 h-4 w-4 " />
             Delete
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/${grupo.id}`)}>
+          <DropdownMenuItem onClick={() => router.push(`/grupos/${grupo.id}`)}>
             <Link className="mr-2 h-4 w-4 " />
             Entrar al Grupo
           </DropdownMenuItem>
