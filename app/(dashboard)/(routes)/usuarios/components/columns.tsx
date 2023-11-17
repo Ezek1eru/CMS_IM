@@ -7,7 +7,6 @@ export type UsuarioColumn = {
   id: string;
   name: string;
   email: string;
-  // Agregar los demás campos de acuerdo al esquema de Prisma User
   // apellido: string;
   // numeroAlumno: string;
   // edad: string;
@@ -27,16 +26,6 @@ export const columns: ColumnDef<UsuarioColumn>[] = [
     accessorKey: 'email',
     header: 'Email',
   },
-  // Agregar el resto de columnas según el modelo de Prisma User
-  // Ejemplo:
-  // {
-  //   accessorKey: 'apellido',
-  //   header: 'Apellido',
-  // },
-  // {
-  //   accessorKey: 'numeroDocumento',
-  //   header: 'Número de Documento',
-  // },
   {
     id: 'actions',
     cell: ({ row }) => <CellAction data={row.original} />,

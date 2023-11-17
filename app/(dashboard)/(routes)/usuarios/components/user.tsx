@@ -14,7 +14,7 @@ interface UsuarioProps {
   data: UsuarioColumn[];
 }
 
-export const MisioneroClient: React.FC<UsuarioProps> = ({ data }) => {
+export const UserClient: React.FC<UsuarioProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -22,10 +22,10 @@ export const MisioneroClient: React.FC<UsuarioProps> = ({ data }) => {
     <>
       <div className="flex items-center justify-between ">
         <Heading
-          title={`Misioneros (${data.length})`}
-          description="Administra los misioneros"
+          title={`Usuario (${data.length})`}
+          description="Administra los usuarios"
         />
-        <Button onClick={() => router.push(`/misioneros/new`)}>
+        <Button onClick={() => router.push(`/user/new`)}>
           <Plus className="mr-2 h-4 w-4" />
           Add new
         </Button>
