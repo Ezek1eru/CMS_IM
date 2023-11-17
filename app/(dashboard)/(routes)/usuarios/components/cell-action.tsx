@@ -34,19 +34,19 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     toast.success('Usuario Id copiado al portapapeles.');
   };
 
-  const onDelete = async () => {
-    try {
-      setLoading(true);
-      await axios.delete(`/api/user/${data.id}`);
-      router.refresh();
-      toast.success('Usuario eliminado.');
-    } catch (error) {
-      toast.error('Algo ha ido mal.');
-    } finally {
-      setLoading(false);
-      setOpen(false);
-    }
-  };
+    const onDelete = async () => {
+      try {
+        setLoading(true);
+        await axios.delete(`/api/usuarios/${data.id}`);
+        router.refresh();
+        toast.success('Usuario eliminado.');
+      } catch (error) {
+        toast.error('Algo ha ido mal.');
+      } finally {
+        setLoading(false);
+        setOpen(false);
+      }
+    };
 
   return (
     <>

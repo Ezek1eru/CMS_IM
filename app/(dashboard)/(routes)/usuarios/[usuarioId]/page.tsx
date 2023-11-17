@@ -4,11 +4,11 @@ import { UsuarioForm } from './components/usuarios-form';
 const UsuarioPage = async ({
   params,
 }: {
-  params: { UsuarioId: string };
+  params: { usuarioId: string };
 }) => {
   const usuarios = await prismadb.user.findUnique({
     where: {
-      id: params.UsuarioId,
+      id: params.usuarioId,
     },
   });
 

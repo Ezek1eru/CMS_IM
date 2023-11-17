@@ -10,7 +10,7 @@ export async function POST(
   try {
     const body = await req.json();
 
-    const { name, email, password, userRole, grupoId } = body;
+    const { name, email, password,} = body;
 
     if (!name) {
       return new NextResponse("Nombre del usuario es necesario", { status: 400 });
@@ -21,12 +21,12 @@ export async function POST(
     if (!password) {
       return new NextResponse("La contraseña es necesaria", { status: 400 });
     }
-    if (!userRole) {
+    /*if (!userRole) {
       return new NextResponse("El rol del usuario es necesario", { status: 400 });
     }
     if (!grupoId) {
       return new NextResponse("El grupo del usuario es necesario", { status: 400 });
-    }
+    }*/
 
     const exists = await prismadb.user.findUnique({
       where: {
@@ -46,8 +46,8 @@ export async function POST(
         name,
         email,
         password: hashpassword,
-        userRole,
-        grupoId
+        //userRole,
+        //grupoId
       }
     });
   

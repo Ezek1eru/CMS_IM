@@ -36,6 +36,7 @@ const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   userRole: z.string().optional(),
+  grupoId: z.string().optional(),
 });
 
 type UserFormValues = z.infer<typeof formSchema>;
@@ -76,12 +77,12 @@ export const UsuarioForm: React.FC<UserFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/users/${params.userId}`, data);
+        await axios.patch(`/api/usuarios/${params.usuarioId}`, data);
       } else {
-        await axios.post(`/api/users`, data);
+        await axios.post(`/api/usuarios`, data);
       }
       router.refresh();
-      router.push(`/users`);
+      router.push(`/usuarios`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error('Algo ha ido mal.');
@@ -93,9 +94,9 @@ export const UsuarioForm: React.FC<UserFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/users/${params.userId}`);
+      await axios.delete(`/api/usuarios/${params.usuarioId}`);
       router.refresh();
-      router.push('/users');
+      router.push('/usuarios');
       toast.success('Usuario eliminado.');
     } catch (error) {
       toast.error('Algo ha ido mal.');

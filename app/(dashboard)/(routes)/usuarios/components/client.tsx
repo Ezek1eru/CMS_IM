@@ -25,7 +25,7 @@ export const UserClient: React.FC<UsuarioProps> = ({ data }) => {
           title={`Usuario (${data.length})`}
           description="Administra los usuarios"
         />
-        <Button onClick={() => router.push(`/user/new`)}>
+        <Button onClick={() => router.push(`/usuarios/new`)}>
           <Plus className="mr-2 h-4 w-4" />
           Add new
         </Button>
