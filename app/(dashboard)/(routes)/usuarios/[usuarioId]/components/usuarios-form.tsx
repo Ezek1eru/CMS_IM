@@ -1,3 +1,5 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User } from '@prisma/client';
 import axios from 'axios';
@@ -34,10 +36,6 @@ const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   userRole: z.string().optional(),
-  // Agregar los demás campos del esquema de usuario de Prisma
-  // apellido: z.string().min(2),
-  // numeroAlumno: z.string().min(2),
-  // ...otros campos necesarios
 });
 
 type UserFormValues = z.infer<typeof formSchema>;
@@ -71,7 +69,6 @@ export const UsuarioForm: React.FC<UserFormProps> = ({
       email: '',
       password: '',
       userRole: 'USER',
-      // Incluir otros valores por defecto si es necesario
     },
   });
 

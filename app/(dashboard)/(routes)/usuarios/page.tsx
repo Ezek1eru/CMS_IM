@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 import prismadb from '@/lib/prismadb';
 
-import { UserClient } from './components/user';
+import { UserClient } from './components/client';
 import { UsuarioColumn } from './components/columns';
 
 const GruposPage = async () => {

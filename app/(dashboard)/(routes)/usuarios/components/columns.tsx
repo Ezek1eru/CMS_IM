@@ -7,13 +7,6 @@ export type UsuarioColumn = {
   id: string;
   name: string;
   email: string;
-  // apellido: string;
-  // numeroAlumno: string;
-  // edad: string;
-  // tipoDocumento: string;
-  // numeroDocumento: string;
-  // carrera: string;
-  // numeroTelefono: string;
   createdAt: string;
 };
 
