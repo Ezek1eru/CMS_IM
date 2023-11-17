@@ -1,17 +1,21 @@
+import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
 
 import Navbar from '@/components/Navbar';
 import { Providers } from '@/components/providers/providers';
 
-export default function DashboardLayout({
+import { authOptions } from '../api/auth/[...nextauth]/route';
+
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
   return (
     <>
       <Providers>
-        <Navbar />
+        {session?.user?.role === 'ADMIN' && <Navbar />}
         {children}
       </Providers>
     </>
