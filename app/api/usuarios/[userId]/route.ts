@@ -4,20 +4,17 @@ import prismadb from "@/lib/prismadb";
 
 export async function GET(
     req: Request,
-    {params}: {params: {userId: string}},
+    {params}: {params: {usuarioId: string}},
   ) {
     try {
-        if(!params.userId){
+        if(!params.usuarioId){
             return new NextResponse("Id del usuario es necesario", {status: 400});
         }
 
       const users = await prismadb.user.findMany({
         where: {
-            id: params.userId,
+            id: params.usuarioId,
         },
-        include: {
-          grupo: true
-        }
   
       }); 
     
@@ -32,12 +29,12 @@ export async function GET(
 
 export async function PATCH(
     req: Request,
-    {params}: {params: {userId: string}},
+    {params}: {params: {usuarioId: string}},
 ){
     try {
         const body = await req.json();
 
-        const { name, email, password, userRole, grupoId } = body;
+        const { name, email, password, } = body;
 
         if (!name) {
             return new NextResponse("Nombre del usuario es necesario", { status: 400 });
@@ -48,27 +45,27 @@ export async function PATCH(
           if (!password) {
             return new NextResponse("La contraseña es necesaria", { status: 400 });
           }
-          if (!userRole) {
+          /*if (!userRole) {
             return new NextResponse("El rol del usuario es necesario", { status: 400 });
           }
           if (!grupoId) {
             return new NextResponse("Grupo id es necesario", { status: 400 });
-          }
+          }*/
 
-        if(!params.userId){
+        if(!params.usuarioId){
             return new NextResponse("User Id is required", {status: 400})
         }
 
         const user = await prismadb.user.updateMany({
             where: {
-                id: params.userId,
+                id: params.usuarioId,
             }, 
             data: {
                 name, 
                 email,
                 password,
-                userRole,
-                grupoId
+                //userRole,
+                //grupoId
             }
         })
 
@@ -82,16 +79,16 @@ export async function PATCH(
 
 export async function DELETE(
     req: Request,
-    {params}: {params: {userId: string}}
+    {params}: {params: {usuarioId: string}}
 ){
     try{
-        if(!params.userId){
-            return new NextResponse("Id del grupo es necesario", {status: 400});
+        if(!params.usuarioId){
+            return new NextResponse("Id del usuario es necesario", {status: 400});
         }
 
         const user = await prismadb.user.deleteMany({
             where: {
-                id: params.userId, 
+                id: params.usuarioId, 
             }
         });
 
