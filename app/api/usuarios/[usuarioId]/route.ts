@@ -34,7 +34,7 @@ export async function PATCH(
     try {
         const body = await req.json();
 
-        const { name, email, password, } = body;
+        const { name, email, password, grupoId } = body;
 
         if (!name) {
             return new NextResponse("Nombre del usuario es necesario", { status: 400 });
@@ -47,10 +47,10 @@ export async function PATCH(
           }
           /*if (!userRole) {
             return new NextResponse("El rol del usuario es necesario", { status: 400 });
-          }
+          }*/
           if (!grupoId) {
             return new NextResponse("Grupo id es necesario", { status: 400 });
-          }*/
+          }
 
         if(!params.usuarioId){
             return new NextResponse("User Id is required", {status: 400})
@@ -65,7 +65,7 @@ export async function PATCH(
                 email,
                 password,
                 //userRole,
-                //grupoId
+                grupoId
             }
         })
 
