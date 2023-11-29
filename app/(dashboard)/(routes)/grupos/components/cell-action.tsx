@@ -16,13 +16,18 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { AlertModal } from '@/components/modals/alert-modal';
+import { useModal } from '@/hooks/use-modal-store';
+import { GrupoConMisioneros } from '@/type';
+
 import { GrupoColumn } from './columns';
 
 interface CellActionProps {
-  data: GrupoColumn;
+  grupo: GrupoColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
+  const { onOpen } = useModal();
+
   const router = useRouter();
   const params = useParams();
 
@@ -37,7 +42,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/grupos/${data.id}`);
+      await axios.delete(`/api/grupos/${grupo.id}`);
       router.refresh();
       toast.success('Grupo eliminado.');
     } catch (error) {
@@ -64,22 +69,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => router.push(`/grupos/${data.id}`)}>
-            <Edit className="mr-2 h-4 w-4 " />
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
-            <Copy className="mr-2 h-4 w-4 " />
-            Copy Id
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+          <DropdownMenuItem onClick={() => onOpen('editarGrupo', { grupo })}>
+            <Edit className="text-black mr-2 h-4 w-4 " />
+            Editar
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
             Delete
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/${data.id}`)}>
+          <DropdownMenuItem onClick={() => router.push(`/grupos/${grupo.id}`)}>
             <Link className="mr-2 h-4 w-4 " />
-            Editar Grupo
+            Entrar al Grupo
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

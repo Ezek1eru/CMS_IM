@@ -97,5 +97,4 @@ export async function DELETE(
     }catch(error){
         console.log("USER_DELETE", error);
         return new NextResponse("Internal error", {status: 500});
-    }
 }

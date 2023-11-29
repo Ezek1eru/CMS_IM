@@ -13,8 +13,10 @@ model User {
   email     String   @unique
   password  String
   userRole  ROLE     @default(USER)
+
   grupoId   String?
   grupo     Grupo?   @relation("UserToGrupo", fields: [grupoId], references: [id])
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -23,13 +25,16 @@ model User {
 
 model Grupo {
   id          String      @id @default(uuid())
-  name        String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  name        String      @unique
+  
   misioneroId String?
   misioneros  Misionero[] @relation("MisioneroToGrupo")
+  
   usuarios    User[]      @relation("UserToGrupo")
   userId      String?
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@index([userId])
 }
@@ -45,8 +50,10 @@ model Misionero {
   numeroDocumento String
   carrera         String
   numeroTelefono  String
+
   grupoId         String?
   grupo           Grupo?   @relation("MisioneroToGrupo", fields: [grupoId], references: [id])
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

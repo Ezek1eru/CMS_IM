@@ -6,7 +6,10 @@ import { CellAction } from './cell-action';
 export type GrupoColumn = {
   id: string;
   name: string;
-  createdAt: string;
+  misioneroId: string;
+  userId: string;
+  updatedAt: Date;
+  createdAt: Date;
 };
 
 export const columns: ColumnDef<GrupoColumn>[] = [
@@ -20,6 +23,6 @@ export const columns: ColumnDef<GrupoColumn>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => <CellAction grupo={row.original} />,
   },
 ];

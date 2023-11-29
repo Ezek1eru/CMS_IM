@@ -29,6 +29,6 @@ export const columns: ColumnDef<UsuarioColumn>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => <CellAction usuario={row.original} />,
   },
 ];

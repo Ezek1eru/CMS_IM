@@ -8,6 +8,7 @@ import { DataTable } from '@/components/ui/data-table';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
+import { useModal } from '@/hooks/use-modal-store';
 import { MisioneroColumn, columns } from './columns';
 
 interface MisioneroClientProps {
@@ -15,8 +16,7 @@ interface MisioneroClientProps {
 }
 
 export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
-  const router = useRouter();
-  const params = useParams();
+  const { onOpen } = useModal();
 
   return (
     <>
@@ -25,7 +25,7 @@ export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
           title={`Misioneros (${data.length})`}
           description="Administra los misioneros"
         />
-        <Button onClick={() => router.push(`/misioneros/new`)}>
+        <Button onClick={() => onOpen('crearMisionero')}>
           <Plus className="mr-2 h-4 w-4" />
           Add new
         </Button>

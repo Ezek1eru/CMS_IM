@@ -16,15 +16,15 @@ import {
 
 import { AlertModal } from '@/components/modals/alert-modal';
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
+
 import { UsuarioColumn } from './columns';
 
 interface CellActionProps {
-  data: UsuarioColumn;
+  usuario: UsuarioColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({ usuario }) => {
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -34,19 +34,22 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     toast.success('Usuario Id copiado al portapapeles.');
   };
 
-    const onDelete = async () => {
-      try {
-        setLoading(true);
-        await axios.delete(`/api/usuarios/${data.id}`);
-        router.refresh();
-        toast.success('Usuario eliminado.');
-      } catch (error) {
-        toast.error('Algo ha ido mal.');
-      } finally {
-        setLoading(false);
-        setOpen(false);
-      }
-    };
+  const onDelete = async () => {
+    try {
+      setLoading(true);
+      console.log(`/api/usuarios/${usuario.id}`);
+      await axios.delete(`/api/usuarios/${usuario.id}`);
+      router.refresh();
+      toast.success('Usuario eliminado.');
+    } catch (error) {
+      toast.error('Algo ha ido mal.');
+      //Console log el error
+      console.log(error);
+    } finally {
+      setLoading(false);
+      setOpen(false);
+    }
+  };
 
   return (
     <>
@@ -71,7 +74,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <Edit className="mr-2 h-4 w-4 " />
             Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
+          <DropdownMenuItem onClick={() => onCopy(usuario.id)}>
             <Copy className="mr-2 h-4 w-4 " />
             Copy Id
           </DropdownMenuItem>
