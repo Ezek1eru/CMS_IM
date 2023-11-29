@@ -1,4 +1,4 @@
-'use client';
+;;'use client';
 
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
@@ -66,7 +66,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/user/${data.id}`)}
+            onClick={() => router.push(`/usuarios/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4 " />
             Update
