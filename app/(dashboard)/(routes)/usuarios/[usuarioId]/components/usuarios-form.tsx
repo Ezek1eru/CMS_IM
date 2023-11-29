@@ -5,7 +5,7 @@ import { User } from '@prisma/client';
 import axios from 'axios';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
@@ -63,6 +63,22 @@ export const UsuarioForm: React.FC<UserFormProps> = ({
     : 'Usuario creado.';
   const action = initialData ? 'Guardar cambios' : 'Crear';
 
+  const [grupos, setGrupos] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchGrupos = async () => {
+      try {
+        const response = await axios.get('/api/grupos');
+        setGrupos(response.data);
+      } catch (error) {
+        console.error('Error al obtener los grupos:', error);
+        console.error('Detalles del error:', error.response);
+      }
+    };
+
+    fetchGrupos();
+  }, []);
+
   const form = useForm<UserFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -70,6 +86,7 @@ export const UsuarioForm: React.FC<UserFormProps> = ({
       email: '',
       password: '',
       userRole: 'USER',
+      grupoId: '',
     },
   });
 
@@ -163,6 +180,37 @@ export const UsuarioForm: React.FC<UserFormProps> = ({
             />
             <FormField
               control={form.control}
+              name="grupoId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Grupo Misionero</FormLabel>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Selecciona el grupo al que pertenece"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {grupos.map((grupo) => (
+                        <SelectItem key={grupo.id} value={grupo.id}>
+                          {grupo.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
@@ -179,7 +227,6 @@ export const UsuarioForm: React.FC<UserFormProps> = ({
                 </FormItem>
               )}
             />
-            {/* Agregar los campos restantes según el modelo de datos de Prisma User */}
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
