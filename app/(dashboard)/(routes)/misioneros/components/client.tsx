@@ -18,9 +18,6 @@ interface MisioneroClientProps {
 export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
   const { onOpen } = useModal();
 
-  const router = useRouter();
-  const params = useParams();
-
   return (
     <>
       <div className="flex items-center justify-between ">

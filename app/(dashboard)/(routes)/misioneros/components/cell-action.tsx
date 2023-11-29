@@ -27,7 +27,6 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
   const { onOpen } = useModal();
 
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);

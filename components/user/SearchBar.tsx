@@ -1,7 +1,5 @@
 'use client';
 
-import prismadb from '@/lib/prismadb';
-
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '../ui/card';
 

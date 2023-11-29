@@ -8,6 +8,7 @@ import { DataTable } from '@/components/ui/data-table';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
+import { useModal } from '@/hooks/use-modal-store';
 import { UsuarioColumn, columns } from './columns';
 
 interface UsuarioProps {
@@ -15,8 +16,7 @@ interface UsuarioProps {
 }
 
 export const UserClient: React.FC<UsuarioProps> = ({ data }) => {
-  const router = useRouter();
-  const params = useParams();
+  const { onOpen } = useModal();
 
   return (
     <>
@@ -25,7 +25,7 @@ export const UserClient: React.FC<UsuarioProps> = ({ data }) => {
           title={`Usuario (${data.length})`}
           description="Administra los usuarios"
         />
-        <Button onClick={() => router.push(`/usuarios/new`)}>
+        <Button onClick={() => onOpen('crearUsuario')}>
           <Plus className="mr-2 h-4 w-4" />
           Add new
         </Button>
