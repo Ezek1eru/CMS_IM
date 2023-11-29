@@ -13,8 +13,10 @@ model User {
   email     String   @unique
   password  String
   userRole  ROLE     @default(USER)
+
   grupoId   String?
   grupo     Grupo?   @relation("UserToGrupo", fields: [grupoId], references: [id])
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

@@ -9,6 +9,7 @@ import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { useModal } from '@/hooks/use-modal-store';
 import { MisioneroColumn, columns } from './columns';
 
 interface MisioneroClientProps {
@@ -19,6 +20,8 @@ export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
+  const { onOpen } = useModal();
+
   return (
     <>
       <div className="flex items-center justify-between ">
@@ -27,11 +30,11 @@ export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
           description="Administra los misioneros"
         />
         <div className="space-x-2">
-          <Button onClick={() => router.push(`/grupos/${params.grupoId}`)}>
+          <Button onClick={() => onOpen('añadirMisionero')}>
             <Plus className="mr-2 h-4 w-4" />
             Añadir
           </Button>
-          <Button onClick={() => router.push(`/misioneros/new`)}>
+          <Button onClick={() => onOpen('crearMisionero')}>
             <Plus className="mr-2 h-4 w-4" />
             Add new
           </Button>

@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Grupo } from '@prisma/client';
+import { User } from '@prisma/client';
 import axios from 'axios';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
@@ -22,51 +22,67 @@ import {
 } from '@/components/ui/form';
 import Heading from '@/components/ui/heading';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import { SelectValue } from '@radix-ui/react-select';
 
 const formSchema = z.object({
   name: z.string().min(2),
+  email: z.string().email(),
+  password: z.string().min(6),
+  userRole: z.string().optional(),
+  grupoId: z.string().optional(),
 });
 
-type GrupoFormValues = z.infer<typeof formSchema>;
+type UserFormValues = z.infer<typeof formSchema>;
 
-interface GrupoFormProps {
-  initialData: Grupo | null;
+interface UserFormProps {
+  initialData: User | null;
 }
 
-export const GrupoForm: React.FC<GrupoFormProps> = ({ initialData }) => {
+export const UsuarioForm: React.FC<UserFormProps> = ({
+  initialData,
+}) => {
   const params = useParams();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData
-    ? 'Edita el grupo misionero'
-    : 'Crea un nuevo grupo misionero';
+  const title = initialData ? 'Edita al usuario' : 'Crea un nuevo usuario';
   const description = initialData
-    ? 'Edita el grupo misionero'
-    : 'Crea un nuevo grupo misionero';
-  const toastMessage = initialData ? 'Grupo actualizado.' : 'Grupo creado.';
+    ? 'Edita al usuario'
+    : 'Crea un nuevo usuario';
+  const toastMessage = initialData
+    ? 'Usuario actualizado.'
+    : 'Usuario creado.';
   const action = initialData ? 'Guardar cambios' : 'Crear';
 
-  const form = useForm<GrupoFormValues>({
+  const form = useForm<UserFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: '',
+      email: '',
+      password: '',
+      userRole: 'USER',
     },
   });
 
-  const onSubmit = async (data: GrupoFormValues) => {
+  const onSubmit = async (data: UserFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/grupos/${params.grupoId}`, data);
+        await axios.patch(`/api/usuarios/${params.usuarioId}`, data);
       } else {
-        await axios.post(`/api/grupos`, data);
+        await axios.post(`/api/usuarios`, data);
       }
       router.refresh();
-      router.push(`/grupos`);
+      router.push(`/usuarios`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error('Algo ha ido mal.');
@@ -78,12 +94,12 @@ export const GrupoForm: React.FC<GrupoFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/grupos/${params.grupoId}`);
+      await axios.delete(`/api/usuarios/${params.usuarioId}`);
       router.refresh();
-      router.push('/grupos');
-      toast.success('Grupo eliminado.');
+      router.push('/usuarios');
+      toast.success('Usuario eliminado.');
     } catch (error) {
-      toast.error('Aegurate de haber borrado todos los misioneros primero.');
+      toast.error('Algo ha ido mal.');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -113,21 +129,31 @@ export const GrupoForm: React.FC<GrupoFormProps> = ({ initialData }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Grupo</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
+                  <FormControl>
+                    <Input disabled={loading} placeholder="Nombre" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Nombre del Grupo"
+                      placeholder="email@uap.edu.ar"
                       {...field}
                     />
                   </FormControl>
@@ -135,6 +161,25 @@ export const GrupoForm: React.FC<GrupoFormProps> = ({ initialData }) => {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contraseña</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Contraseña"
+                      type="password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* Agregar los campos restantes según el modelo de datos de Prisma User */}
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}

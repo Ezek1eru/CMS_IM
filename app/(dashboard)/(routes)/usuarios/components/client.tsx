@@ -9,23 +9,23 @@ import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 import { useModal } from '@/hooks/use-modal-store';
-import { MisioneroColumn, columns } from './columns';
+import { UsuarioColumn, columns } from './columns';
 
-interface MisioneroClientProps {
-  data: MisioneroColumn[];
+interface UsuarioProps {
+  data: UsuarioColumn[];
 }
 
-export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
+export const UserClient: React.FC<UsuarioProps> = ({ data }) => {
   const { onOpen } = useModal();
 
   return (
     <>
       <div className="flex items-center justify-between ">
         <Heading
-          title={`Misioneros (${data.length})`}
-          description="Administra los misioneros"
+          title={`Usuario (${data.length})`}
+          description="Administra los usuarios"
         />
-        <Button onClick={() => onOpen('crearMisionero')}>
+        <Button onClick={() => onOpen('crearUsuario')}>
           <Plus className="mr-2 h-4 w-4" />
           Add new
         </Button>

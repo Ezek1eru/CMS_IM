@@ -1,7 +1,6 @@
 'use client';
 
 import axios from 'axios';
-import { Copy, Edit, Link, MoreHorizontal, Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -16,37 +15,36 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { AlertModal } from '@/components/modals/alert-modal';
-import { useModal } from '@/hooks/use-modal-store';
-import { GrupoConMisioneros } from '@/type';
+import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 
-import { GrupoColumn } from './columns';
+import { UsuarioColumn } from './columns';
 
 interface CellActionProps {
-  grupo: GrupoColumn;
+  usuario: UsuarioColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
-  const { onOpen } = useModal();
-
+export const CellAction: React.FC<CellActionProps> = ({ usuario }) => {
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success('Grupo Id copied to clipboard');
+    toast.success('Usuario Id copiado al portapapeles.');
   };
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/grupos/${grupo.id}`);
+      console.log(`/api/usuarios/${usuario.id}`);
+      await axios.delete(`/api/usuarios/${usuario.id}`);
       router.refresh();
-      toast.success('Grupo eliminado.');
+      toast.success('Usuario eliminado.');
     } catch (error) {
-      toast.error('Asegurate de haber borrado los misioneros antes.');
+      toast.error('Algo ha ido mal.');
+      //Console log el error
+      console.log(error);
     } finally {
       setLoading(false);
       setOpen(false);
@@ -69,18 +67,18 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onOpen('editarGrupo', { grupo })}>
-            <Edit className="text-black mr-2 h-4 w-4 " />
-            Editar
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem onClick={() => router.push(`/user/${usuario.id}`)}>
+            <Edit className="mr-2 h-4 w-4 " />
+            Update
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onCopy(usuario.id)}>
+            <Copy className="mr-2 h-4 w-4 " />
+            Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
             Delete
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/grupos/${grupo.id}`)}>
-            <Link className="mr-2 h-4 w-4 " />
-            Entrar al Grupo
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

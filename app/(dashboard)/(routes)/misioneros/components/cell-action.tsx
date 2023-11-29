@@ -1,10 +1,12 @@
 'use client';
 
 import axios from 'axios';
+import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
+import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,18 +15,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useModal } from '@/hooks/use-modal-store';
 
-import { AlertModal } from '@/components/modals/alert-modal';
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { MisioneroColumn } from './columns';
 
 interface CellActionProps {
-  data: MisioneroColumn;
+  misionero: MisioneroColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
+  const { onOpen } = useModal();
+
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -37,7 +39,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/misioneros/${data.id}`);
+      await axios.delete(`/api/misioneros/${misionero.id}`);
       router.refresh();
       toast.success('Misionero eliminado.');
     } catch (error) {
@@ -66,12 +68,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/misioneros/${data.id}`)}
+            onClick={() => onOpen('editarMisionero', { misionero })}
           >
             <Edit className="mr-2 h-4 w-4 " />
-            Update
+            Editar
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
+          <DropdownMenuItem onClick={() => onCopy(misionero.id)}>
             <Copy className="mr-2 h-4 w-4 " />
             Copy Id
           </DropdownMenuItem>

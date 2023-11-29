@@ -1,5 +1,9 @@
 'use client';
 
+import { Globe2, LogOut } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,16 +14,15 @@ import {
 
 import MainNav from '@/components/MainNav';
 
-import { Globe2, LogOut } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
-
 const Navbar = () => {
   const { data: session } = useSession();
 
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
-        <Globe2 className="h-8 w-8" />
+        <Link href="/">
+          <Globe2 className="h-8 w-8" />
+        </Link>
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
           <DropdownMenu>
