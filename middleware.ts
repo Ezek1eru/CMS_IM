@@ -7,10 +7,12 @@ export const middleware = withAuth(
   function middleware(req) {
     // @ts-ignore
     if (!req.nextauth.token) {
-      return NextResponse.redirect(new URL('/login', req.url));
+      return NextResponse.redirect(new URL('/api/auth/signin', req.url));
     }
     if (req.nextauth.token.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL(`/grupos/${req.nextauth.token.groupId}`, req.url));
+      return NextResponse.redirect(
+        new URL(`/grupos/${req.nextauth.token.groupId}`, req.url)
+      );
     }
   },
   {
@@ -33,6 +35,8 @@ export const middleware = withAuth(
 
 // // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|!login|!grupos).*)'],
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|!login|!/auth/signin|!grupos).*)',
+  ],
 };
 // export default function middleware() {}

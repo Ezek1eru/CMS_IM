@@ -29,15 +29,9 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
   const { onOpen } = useModal();
 
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success('Grupo Id copied to clipboard');
-  };
 
   const onDelete = async () => {
     try {
@@ -64,7 +58,7 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open Menu</span>
+            <span className="sr-only">Abrir Menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
@@ -76,7 +70,7 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
-            Delete
+            Eliminar
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => router.push(`/grupos/${grupo.id}`)}>
             <Link className="mr-2 h-4 w-4 " />

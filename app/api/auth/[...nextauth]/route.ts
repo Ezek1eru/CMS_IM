@@ -1,7 +1,7 @@
 import prismadb from '@/lib/prismadb';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-export const runtime = 'nodejs'
+export const runtime = 'nodejs';
 const { hash, verify } = require('credentials');
 
 export const authOptions: NextAuthOptions = {
@@ -45,6 +45,7 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           email: user.email,
           role: user.userRole,
+          groupId: user.grupoId,
         } as any;
       },
     }),
@@ -58,6 +59,7 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           email: user.email,
           role: user.role,
+          groupId: user.groupId,
         };
       }
       return token;
@@ -71,6 +73,7 @@ export const authOptions: NextAuthOptions = {
           name: token.name,
           email: token.email,
           role: token.role,
+          groupId: token.grupoId,
         },
       };
     },

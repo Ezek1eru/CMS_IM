@@ -1,10 +1,12 @@
-;;'use client';
+'use client';
 
 import axios from 'axios';
+import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
+import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,9 +15,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-import { AlertModal } from '@/components/modals/alert-modal';
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { useModal } from '@/hooks/use-modal-store';
 
 import { UsuarioColumn } from './columns';
 
@@ -24,27 +24,23 @@ interface CellActionProps {
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ usuario }) => {
+  const { onOpen } = useModal();
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success('Usuario Id copiado al portapapeles.');
-  };
-
   const onDelete = async () => {
     try {
       setLoading(true);
-      console.log(`/api/usuarios/${usuario.id}`);
+
       await axios.delete(`/api/usuarios/${usuario.id}`);
+
       router.refresh();
       toast.success('Usuario eliminado.');
     } catch (error) {
       toast.error('Algo ha ido mal.');
-      //Console log el error
-      console.log(error);
     } finally {
       setLoading(false);
       setOpen(false);
@@ -62,25 +58,22 @@ export const CellAction: React.FC<CellActionProps> = ({ usuario }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open Menu</span>
+            <span className="sr-only">Abrir Menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/usuarios/${data.id}`)}
+            //@ts-ignore
+            onClick={() => onOpen('editarUsuario', { usuario })}
           >
             <Edit className="mr-2 h-4 w-4 " />
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(usuario.id)}>
-            <Copy className="mr-2 h-4 w-4 " />
-            Copy Id
+            Editar
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
-            Delete
+            Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

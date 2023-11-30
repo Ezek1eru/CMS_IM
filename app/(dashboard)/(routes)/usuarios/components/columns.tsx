@@ -1,17 +1,22 @@
 'use client';
 import { useEffect, useState } from 'react';
 
+import { ROLE } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
-import { CellAction } from './cell-action';
 import { group } from 'console';
 import { GrupoClient } from '../../grupos/components/client';
+import { CellAction } from './cell-action';
 
 export type UsuarioColumn = {
   id: string;
   name: string;
   email: string;
   grupoId: string;
+  grupo: string;
+  password: string;
+  userRole: ROLE;
   createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<UsuarioColumn>[] = [
@@ -24,7 +29,7 @@ export const columns: ColumnDef<UsuarioColumn>[] = [
     header: 'Email',
   },
   {
-    accessorKey: 'grupoId',
+    accessorKey: 'grupo',
     header: 'Grupo Misionero',
   },
   {

@@ -8,6 +8,7 @@ import { GrupoColumn } from './components/columns';
 const GruposPage = async () => {
   const grupo = await prismadb.grupo.findMany();
 
+  //@ts-ignore
   const formattedGrupos: GrupoColumn[] = grupo.map((item) => ({
     id: item.id,
     name: item.name,

@@ -27,7 +27,7 @@ export const UserClient: React.FC<UsuarioProps> = ({ data }) => {
         />
         <Button onClick={() => onOpen('crearUsuario')}>
           <Plus className="mr-2 h-4 w-4" />
-          Add new
+          Añadir
         </Button>
       </div>
       <Separator />
