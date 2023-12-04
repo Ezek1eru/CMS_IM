@@ -2,8 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -22,21 +20,15 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
 import { useModal } from '@/hooks/use-modal-store';
-import { cn } from '@/lib/utils';
+import { useEffect } from 'react';
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -47,13 +39,14 @@ const formSchema = z.object({
   grupoId: z.string(),
 });
 
-export const CrearInformeModal = () => {
+export const EditarInformeModal = () => {
   const { grupoId } = useParams();
   const router = useRouter();
 
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
 
-  const isModalOpen = isOpen && type === 'crearInforme';
+  const isModalOpen = isOpen && type === 'editarInforme';
+  const { informe } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -65,16 +58,24 @@ export const CrearInformeModal = () => {
     },
   });
 
+  useEffect(() => {
+    if (informe) {
+      form.setValue('name', informe.name);
+      form.setValue('descripcion', informe.descripcion);
+      form.setValue('fecha', new Date(informe.fecha));
+    }
+  }, [informe, form]);
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post(`/api/${grupoId}/informes`, values);
+      await axios.patch(`/api/${grupoId}/informes/${informe?.id}`, values);
 
       form.reset();
 
       router.refresh();
-      toast.success('Informe creado correctamente.');
+      toast.success('Informe actualizado correctamente.');
       onClose();
     } catch (error: any) {
       toast.error('Algo ha ido mal.');
@@ -131,6 +132,7 @@ export const CrearInformeModal = () => {
                       <FormLabel>Descripcion</FormLabel>
                       <FormControl>
                         <Textarea
+                          className="h-64"
                           disabled={isLoading}
                           placeholder="Como ha ido"
                           {...field}
@@ -168,7 +170,7 @@ export const CrearInformeModal = () => {
 
             <DialogFooter className="px-6 py-4">
               <Button disabled={isLoading} className="ml-auto" type="submit">
-                Crear
+                Editar
               </Button>
             </DialogFooter>
           </form>

@@ -7,8 +7,10 @@ export type InformeColumn = {
   id: string;
   name: string;
   descripcion: string;
-  fecha: string;
-  createdAt: string;
+  fecha: Date;
+  grupoId: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export const columns: ColumnDef<InformeColumn>[] = [
@@ -22,6 +24,6 @@ export const columns: ColumnDef<InformeColumn>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => <CellAction informe={row.original} />,
   },
 ];

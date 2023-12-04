@@ -16,13 +16,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import { useModal } from '@/hooks/use-modal-store';
 import { InformeColumn } from './columns';
 
 interface CellActionProps {
-  data: InformeColumn;
+  informe: InformeColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({ informe }) => {
+  const { onOpen } = useModal();
+
   const router = useRouter();
   const { grupoId } = useParams();
 
@@ -32,7 +35,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${grupoId}/${data.id}`);
+      await axios.delete(`/api/${grupoId}/informes/${informe.id}`);
       router.refresh();
       toast.success('Informe eliminado.');
     } catch (error) {
@@ -61,7 +64,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/misioneros/${data.id}`)}
+            onClick={() => onOpen('editarInforme', { informe })}
           >
             <Edit className="mr-2 h-4 w-4 " />
             Editar

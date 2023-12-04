@@ -9,6 +9,7 @@ import { CreateMisioneroModal } from '@/components/modals/create-misionero-modal
 import { CrearUsuarioModal } from '@/components/modals/create-usuario-modal';
 import { EditGrupoModal } from '@/components/modals/edit-grupo-modal';
 import { EditarUsuarioModal } from '@/components/modals/edit-usuario-modal';
+import { EditarInformeModal } from '@/components/modals/editar-informe-modal';
 import { EditarMisioneroModal } from '@/components/modals/editar-misionero-modal';
 
 export const ModalProvider = () => {
@@ -30,6 +31,7 @@ export const ModalProvider = () => {
       <CrearUsuarioModal />
       <EditarUsuarioModal />
       <CrearInformeModal />
+      <EditarInformeModal />
     </>
   );
 };

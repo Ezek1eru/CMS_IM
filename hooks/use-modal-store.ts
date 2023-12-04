@@ -1,4 +1,4 @@
-import { Grupo, Misionero, User } from '@prisma/client';
+import { Grupo, Informe, Misionero, User } from '@prisma/client';
 import { create } from 'zustand';
 
 export type ModalType =
@@ -16,6 +16,7 @@ interface ModalData {
   grupo?: Grupo | undefined;
   misionero?: Misionero | undefined;
   usuario?: User | undefined;
+  informe?: Informe | undefined;
 }
 
 interface ModalStore {
