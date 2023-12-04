@@ -8,7 +8,9 @@ export type ModalType =
   | 'editarMisionero'
   | 'añadirMisionero'
   | 'crearUsuario'
-  | 'editarUsuario';
+  | 'editarUsuario'
+  | 'crearInforme'
+  | 'editarInforme';
 
 interface ModalData {
   grupo?: Grupo | undefined;

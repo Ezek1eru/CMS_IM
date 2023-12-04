@@ -8,15 +8,15 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  userRole  ROLE     @default(USER)
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  userRole ROLE   @default(USER)
 
-  grupoId   String?
-  grupo     Grupo?   @relation("UserToGrupo", fields: [grupoId], references: [id])
-  
+  grupoId String?
+  grupo   Grupo?  @relation("UserToGrupo", fields: [grupoId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -24,23 +24,26 @@ model User {
 }
 
 model Grupo {
-  id          String      @id @default(uuid())
-  name        String      @unique
-  
+  id   String @id @default(uuid())
+  name String @unique
+
   misioneroId String?
   misioneros  Misionero[] @relation("MisioneroToGrupo")
-  
-  usuarios    User[]      @relation("UserToGrupo")
-  userId      String?
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  usuarios User[]  @relation("UserToGrupo")
+  userId   String?
+
+  informes  Informe[] @relation("InformeToGrupo")
+  informeId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }
 
 model Misionero {
-  id              String   @id @default(uuid())
+  id              String @id @default(uuid())
   name            String
   apellido        String
   email           String
@@ -51,11 +54,26 @@ model Misionero {
   carrera         String
   numeroTelefono  String
 
-  grupoId         String?
-  grupo           Grupo?   @relation("MisioneroToGrupo", fields: [grupoId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  grupoId String?
+  grupo   Grupo?  @relation("MisioneroToGrupo", fields: [grupoId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([grupoId])
+}
+
+model Informe {
+  id          String   @id @default(uuid())
+  name        String
+  descripcion String
+  fecha       DateTime
+
+  grupoId String?
+  grupo   Grupo?  @relation("InformeToGrupo", fields: [grupoId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([grupoId])
 }

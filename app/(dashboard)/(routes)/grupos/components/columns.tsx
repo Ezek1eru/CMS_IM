@@ -15,11 +15,11 @@ export type GrupoColumn = {
 export const columns: ColumnDef<GrupoColumn>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Nombre',
   },
   {
     accessorKey: 'createdAt',
-    header: 'Date',
+    header: 'Creado',
   },
   {
     id: 'actions',

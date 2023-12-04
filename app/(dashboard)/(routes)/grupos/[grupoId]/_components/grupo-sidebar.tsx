@@ -1,18 +1,27 @@
 'use client';
 
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { LogOut } from 'lucide-react';
 
 type GrupoSidebarProps = {
   name: string;
 };
 
 const GrupoSidebar = ({ name }: GrupoSidebarProps) => {
+  const { data: session } = useSession();
+
   const router = useRouter();
   const params = useParams();
 
@@ -28,7 +37,8 @@ const GrupoSidebar = ({ name }: GrupoSidebarProps) => {
         </Button>
       </div>
       <Separator className="w-full bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-      <ScrollArea className="flex-1 px-3">
+      <div className="flex flex-col">
+        {' '}
         <div className="flex items-start space-x-6 m-2">
           <div className="flex flex-col h-full space-y-5">
             <Link
@@ -36,7 +46,6 @@ const GrupoSidebar = ({ name }: GrupoSidebarProps) => {
                 'text-xl text-muted-foreground font-medium transition-colors'
               )}
               href={`/grupos/${params?.grupoId}/misioneros`}
-
             >
               Misioneros
             </Link>
@@ -52,13 +61,36 @@ const GrupoSidebar = ({ name }: GrupoSidebarProps) => {
               className={cn(
                 'text-xl font-medium text-muted-foreground transition-colors'
               )}
-              href={`/grupos/${params?.grupoId}/`}
+              href={`/grupos/${params?.grupoId}/informes`}
             >
-              Usuarios
+              Informes
             </Link>
           </div>
         </div>
-      </ScrollArea>
+      </div>
+      {session?.user?.role !== 'ADMIN' && (
+        <div className="flex items-center justify-center align-bottom pt-4 mt-[550px]">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                className="cursor-pointer w-full m-2 font-bold"
+                variant="outline"
+              >
+                {session?.user.name}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => signOut()}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Logout</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      )}
     </div>
   );
 };
