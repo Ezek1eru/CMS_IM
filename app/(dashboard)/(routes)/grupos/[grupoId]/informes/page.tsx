@@ -15,7 +15,6 @@ const InformeGrupoPage = async ({
   const informes = await prismadb.informe.findMany({
     where: {
       grupoId: params.grupoId,
-      
     },
     orderBy: {
       createdAt: 'desc',
@@ -26,8 +25,10 @@ const InformeGrupoPage = async ({
     id: item.id,
     name: item.name,
     descripcion: item.descripcion,
+    grupoId: item.grupoId,
     fecha: format(new Date(item.fecha), 'MMMM do, yyyy'),
     createdAt: format(new Date(item.createdAt), 'MMMM do, yyyy'),
+    updatedAt: format(new Date(item.updatedAt), 'MMMM do, yyyy'),
   }));
 
   return (

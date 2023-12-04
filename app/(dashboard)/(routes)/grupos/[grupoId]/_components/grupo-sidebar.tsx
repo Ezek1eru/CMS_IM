@@ -69,7 +69,7 @@ const GrupoSidebar = ({ name }: GrupoSidebarProps) => {
         </div>
       </div>
       {session?.user?.role !== 'ADMIN' && (
-        <div className="flex items-center justify-center align-bottom pt-4 mt-[550px]">
+        <div className="flex items-center justify-center align-bottom pt-4 mt-[470px]">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button

@@ -5,29 +5,35 @@ export const middleware = withAuth(
   function middleware(req) {
     try {
       if (!req.nextauth.token) {
-        return NextResponse.redirect(new URL('/api/auth/signin', req.url));
+        const shouldRedirect = !req.url.includes('/landing');
+
+        if (shouldRedirect) {
+          return NextResponse.redirect(new URL('/landing', req.url));
+        }
       }
 
       if (req.nextauth.token.role !== 'ADMIN') {
-        return NextResponse.redirect(
-          new URL(`/grupos/${req.nextauth.token.groupId}`, req.url)
-        );
+        const shouldRedirect = !req.url.includes('/grupos');
+
+        if (shouldRedirect) {
+          return NextResponse.redirect(
+            new URL(`/grupos/${req.nextauth.token.groupId}/`, req.url)
+          );
+        }
       }
+
+      return NextResponse.next();
     } catch (error) {
       console.log(error);
     }
   },
   {
     callbacks: {
-      authorized({ req, token }) {
-        if (token) return true;
-      },
+      authorized: () => true,
     },
   }
 );
 
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|!landing|!/auth/signin|!grupos).*)',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|!landing).*)'],
 };
