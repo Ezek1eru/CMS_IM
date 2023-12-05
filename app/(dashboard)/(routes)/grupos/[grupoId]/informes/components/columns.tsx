@@ -7,10 +7,10 @@ export type InformeColumn = {
   id: string;
   name: string;
   descripcion: string;
-  fecha: Date;
+  fecha: string;
   grupoId: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<InformeColumn>[] = [

@@ -4,27 +4,26 @@ import { NextResponse } from 'next/server';
 export const middleware = withAuth(
   function middleware(req) {
     try {
+      // Check if req.nextauth.token exists before accessing properties
       if (!req.nextauth.token) {
         const shouldRedirect = !req.url.includes('/landing');
 
         if (shouldRedirect) {
           return NextResponse.redirect(new URL('/landing', req.url));
         }
-      }
-
-      if (req.nextauth.token.role !== 'ADMIN') {
+      } else if (req.nextauth.token.role !== 'ADMIN') {
         const shouldRedirect = !req.url.includes('/grupos');
 
         if (shouldRedirect) {
-          return NextResponse.redirect(
-            new URL(`/grupos/${req.nextauth.token.groupId}/`, req.url)
-          );
+          const groupId = req.nextauth.token.groupId || '';
+
+          return NextResponse.redirect(new URL(`/grupos/${groupId}/`, req.url));
         }
       }
 
       return NextResponse.next();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
   {

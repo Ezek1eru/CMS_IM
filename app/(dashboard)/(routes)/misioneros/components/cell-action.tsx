@@ -31,11 +31,6 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success('Misionero Id copiado al portapapeles.');
-  };
-
   const onDelete = async () => {
     try {
       setLoading(true);
@@ -72,10 +67,6 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
           >
             <Edit className="mr-2 h-4 w-4 " />
             Editar
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(misionero.id)}>
-            <Copy className="mr-2 h-4 w-4 " />
-            Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />

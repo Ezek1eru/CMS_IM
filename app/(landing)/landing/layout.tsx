@@ -1,28 +1,12 @@
-import '@/styles/globals.css';
+import { Navbar } from './_components/navbar';
 
-import Navbar from './_components/Navbar';
-
-const metadata = {
-  title: 'IM',
-  description: 'Instituto Misionero',
+const LandingLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="h-screen bg-slate-100">
+      <Navbar />
+      <main className="pt-40 pb-20 bg-slate-100">{children}</main>
+    </div>
+  );
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="es">
-      <body>
-        <div className="main">
-          <div className="gradient" />
-        </div>
-        <main className="app">
-          <Navbar />
-          {children}
-        </main>
-      </body>
-    </html>
-  );
-}
+export default LandingLayout;

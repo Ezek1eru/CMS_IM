@@ -70,7 +70,7 @@ export const EditarInformeModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/${grupoId}/informes/${informe?.id}`, values);
+      await axios.patch(`/api/informes/${informe?.id}`, values);
 
       form.reset();
 
@@ -93,7 +93,7 @@ export const EditarInformeModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden max-w-3xl">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Crea un nuevo informe
+            Actualiza el informe
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Cuenta como ha ido la actividad misionera

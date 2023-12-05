@@ -14,7 +14,7 @@ const GruposPage = async () => {
       createdAt: 'desc',
     },
   });
-
+  //@ts-ignore
   const formattedMisionero: MisioneroColumn[] = misioneros.map((item) => ({
     id: item.id,
     name: item.name,

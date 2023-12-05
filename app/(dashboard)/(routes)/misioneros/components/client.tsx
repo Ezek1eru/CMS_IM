@@ -27,7 +27,7 @@ export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
         />
         <Button onClick={() => onOpen('crearMisionero')}>
           <Plus className="mr-2 h-4 w-4" />
-          Add new
+          Añadir
         </Button>
       </div>
       <Separator />

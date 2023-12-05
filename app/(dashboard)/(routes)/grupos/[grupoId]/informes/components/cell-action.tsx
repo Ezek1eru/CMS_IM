@@ -27,7 +27,6 @@ export const CellAction: React.FC<CellActionProps> = ({ informe }) => {
   const { onOpen } = useModal();
 
   const router = useRouter();
-  const { grupoId } = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -35,7 +34,7 @@ export const CellAction: React.FC<CellActionProps> = ({ informe }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${grupoId}/informes/${informe.id}`);
+      await axios.delete(`/api/informes/${informe.id}`);
       router.refresh();
       toast.success('Informe eliminado.');
     } catch (error) {
@@ -64,6 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ informe }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
+            //@ts-ignore
             onClick={() => onOpen('editarInforme', { informe })}
           >
             <Edit className="mr-2 h-4 w-4 " />

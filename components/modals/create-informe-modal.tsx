@@ -69,7 +69,8 @@ export const CrearInformeModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post(`/api/${grupoId}/informes`, values);
+      await axios.post(`/api/informes`, values);
+      console.log(values);
 
       form.reset();
 
