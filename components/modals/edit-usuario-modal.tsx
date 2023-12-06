@@ -82,7 +82,6 @@ export const EditarUsuarioModal = () => {
       form.setValue('name', usuario.name);
       form.setValue('email', usuario.email);
       form.setValue('grupoId', usuario.grupoId);
-      form.setValue('password', usuario.password);
     }
   });
 

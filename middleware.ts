@@ -12,7 +12,7 @@ export const middleware = withAuth(
           return NextResponse.redirect(new URL('/landing', req.url));
         }
       } else if (req.nextauth.token.role !== 'ADMIN') {
-        const shouldRedirect = !req.url.includes('/grupos');
+        const shouldRedirect = !req.url.includes('/grupos/');
 
         if (shouldRedirect) {
           const groupId = req.nextauth.token.groupId || '';

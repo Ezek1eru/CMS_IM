@@ -1,6 +1,6 @@
 import prismadb from '@/lib/prismadb';
 
-const PaginaIndicudialGrupo = async ({
+const PaginaInicialGrupo = async ({
   params,
 }: {
   params: { grupoId: string };
@@ -14,4 +14,4 @@ const PaginaIndicudialGrupo = async ({
   return <div>Grupo: {grupo?.name}</div>;
 };
 
-export default PaginaIndicudialGrupo;
+export default PaginaInicialGrupo;

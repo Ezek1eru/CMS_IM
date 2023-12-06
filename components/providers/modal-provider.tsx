@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { AgregarMisioneroModal } from '@/components/modals/agregar-misionero-modal';
 import { AñadirMisionero } from '@/components/modals/añadir-misionero-modal';
 import { CreateGrupoModal } from '@/components/modals/create-grupo-modal';
 import { CrearInformeModal } from '@/components/modals/create-informe-modal';
@@ -32,6 +33,7 @@ export const ModalProvider = () => {
       <EditarUsuarioModal />
       <CrearInformeModal />
       <EditarInformeModal />
+      <AgregarMisioneroModal />
     </>
   );
 };
