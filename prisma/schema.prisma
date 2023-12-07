@@ -82,17 +82,10 @@ model Salida {
   id        Int      @id @default(autoincrement())
   lugar     String
   fecha     DateTime
-  asistentes Asistente[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+  
+  misioneroId String?
+  misioneros  Misionero[] @relation("MisioneroToGrupo")
 
-model Asistente {
-  id        Int      @id @default(autoincrement())
-  nombre    String
-  asistio   Boolean
-  salida    Salida   @relation(fields: [salidaId], references: [id])
-  salidaId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
