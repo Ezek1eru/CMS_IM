@@ -1,6 +1,11 @@
 'use client';
 
+import prismadb from '@/lib/prismadb';
+import axios from 'axios';
+import { Plus } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import {
   Command,
@@ -9,11 +14,15 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import prismadb from '@/lib/prismadb';
-import { Plus } from 'lucide-react';
+import { useModal } from '@/hooks/use-modal-store';
 
 const BuscarMisinoeros = () => {
+  const router = useRouter();
+  const { grupoId } = useParams();
+  const { onClose } = useModal();
+
   const [misioneros, setMisioneros] = useState([]);
+  const [groupName, setGroupName] = useState('');
 
   useEffect(() => {
     const fetchMisioneros = async () => {
@@ -22,9 +31,34 @@ const BuscarMisinoeros = () => {
 
       setMisioneros(data);
     };
+    const fetchGroupName = async () => {
+      try {
+        const response = await axios.get(`/api/grupos/${grupoId}`);
+        setGroupName(response.data.name);
+      } catch (error) {
+        console.error('Error fetching group name:', error);
+      }
+    };
 
     fetchMisioneros();
-  }, []);
+    fetchGroupName();
+  }, [grupoId]);
+
+  const handleAgregarMisionero = async (misioneroId) => {
+    try {
+      await axios.patch(`/api/grupos/${grupoId}`, {
+        name: groupName,
+        misioneroId,
+      });
+
+      router.refresh();
+      toast.success('Misionero agregado');
+
+      onClose();
+    } catch (error) {
+      toast.error('Algo ha ido mal al agregar el misionero');
+    }
+  };
 
   return (
     <Command className="p-4 rounded-lg">
@@ -37,7 +71,7 @@ const BuscarMisinoeros = () => {
         {misioneros.map((misionero) => (
           <CommandItem
             key={misionero.id}
-            onClick={() => {}}
+            onSelect={() => handleAgregarMisionero(misionero.id)}
             className="flex justify-between cursor-pointer p-2 rounded"
           >
             {misionero.name} {misionero.apellido}
