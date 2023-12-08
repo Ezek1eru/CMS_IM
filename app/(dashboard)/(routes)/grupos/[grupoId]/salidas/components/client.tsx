@@ -26,13 +26,18 @@ export const SalidaClient: React.FC<SalidaClientProps> = ({ data }) => {
     <>
       <div className="flex items-center justify-between ">
         <Heading
-          title={`Salida (${data.length})`}
+          title={`Salidas (${data.length})`}
           description="Administra las salidas"
         />
-        <Button onClick={() => onOpen('crearSalida')}>
-          <Plus className="mr-2 h-4 w-4" />
-          Crear Salida
-        </Button>
+        <div className="space-x-2">
+          <Button onClick={() => {
+            console.log('Botón "Crear Salida" presionado');
+            onOpen('crearSalida');
+          }}>
+            <Plus className="mr-2 h-4 w-4" />
+            Crear Salida
+          </Button>
+          </div>
       </div>
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />

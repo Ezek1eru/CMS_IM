@@ -1,6 +1,8 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import * as z from 'zod';
@@ -12,6 +14,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import {
   Form,
@@ -25,23 +28,25 @@ import { Input } from '@/components/ui/input';
 import { useModal } from '@/hooks/use-modal-store';
 
 const formSchema = z.object({
+  name: z.string().min(2),
+  descripcion: z.string().min(2),
   lugar: z.string().min(2),
   fecha: z.date(),
 });
-
-type ModalType = 'crearUsuario' | 'crearSalida';
 
 export const CreateSalidaModal = () => {
   const { isOpen, onClose, type } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && (type as ModalType) === 'crearSalida';
+  const isModalOpen = isOpen && type === 'crearSalida';
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: '',
+      descripcion: '',
       lugar: '',
-      fecha: new Date().toISOString().substr(0, 10), // Establecer fecha por defecto (hoy)
+      fecha: '', 
     },
   });
 
@@ -52,7 +57,8 @@ export const CreateSalidaModal = () => {
       await axios.post(`/api/salidas`, values);
 
       form.reset();
-      router.reload();
+
+      router.refresh();
       toast.success('Salida creada correctamente');
       onClose();
     } catch (error) {
@@ -73,9 +79,14 @@ export const CreateSalidaModal = () => {
           <DialogTitle className="text-2xl text-center font-bold">
             Crear Salida
           </DialogTitle>
+          <DialogDescription className="text-center text-zinc-500">
+            Añade la información necesaria para crear una nueva salida.
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full py-8">
+          <form 
+            onSubmit={form.handleSubmit(onSubmit)} 
+            className="space-y-8 w-full py-8">
             <div className="grid grid-cols-1 gap-8 px-10">
               <FormField
                 control={form.control}

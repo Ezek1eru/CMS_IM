@@ -6,8 +6,12 @@ import { CellAction } from './cell-action';
 export type SalidaColumn = {
   id: string;
   name: string;
+  descripcion: string;
   lugar: string;
   fecha: string;
+  grupoId: string;
+  misioneroId: string;
+  createdAt: string;
 };
 
 export const columns: ColumnDef<SalidaColumn>[] = [

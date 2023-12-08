@@ -8,8 +8,8 @@ import { DataTable } from '@/components/ui/data-table';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import { useModal } from '@/hooks/use-modal-store';
 
+import { useModal } from '@/hooks/use-modal-store';
 import { MisioneroColumn, columns } from './columns';
 
 interface MisioneroClientProps {
