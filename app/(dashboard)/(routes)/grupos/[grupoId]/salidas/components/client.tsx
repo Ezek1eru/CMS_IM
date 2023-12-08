@@ -1,7 +1,7 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
@@ -11,11 +11,14 @@ import { Separator } from '@/components/ui/separator';
 import { useModal } from '@/hooks/use-modal-store';
 import { SalidaColumn, columns } from './columns';
 
-interface SalidaProps {
+interface SalidaClientProps {
   data: SalidaColumn[];
 }
 
-export const UserClient: React.FC<SalidaProps> = ({ data }) => {
+export const SalidaClient: React.FC<SalidaClientProps> = ({ data }) => {
+  const router = useRouter();
+  const params = useParams();
+
   const { onOpen } = useModal();
 
 
@@ -28,7 +31,7 @@ export const UserClient: React.FC<SalidaProps> = ({ data }) => {
         />
         <Button onClick={() => onOpen('crearSalida')}>
           <Plus className="mr-2 h-4 w-4" />
-          Añadir
+          Crear Salida
         </Button>
       </div>
       <Separator />

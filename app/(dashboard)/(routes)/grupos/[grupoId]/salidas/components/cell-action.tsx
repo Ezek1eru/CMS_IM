@@ -1,10 +1,10 @@
+'use client';
+
 import axios from 'axios';
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,21 +13,20 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useModal } from '@/hooks/use-modal-store';
 
-interface Salida {
-  id: number;
-  lugar: string;
-  fecha: string; 
-}
+import { AlertModal } from '@/components/modals/alert-modal';
+import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { useModal } from '@/hooks/use-modal-store';
+import { SalidaColumn } from './columns';
+
 
 interface CellActionProps {
-  salida: Salida; 
+  data: SalidaColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
-  const { onOpen } = useModal();
+export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
+  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -35,10 +34,8 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-
-      await axios.delete(`/api/salidas/${salida.id}`); 
-
-      router.reload(); 
+      await axios.delete(`/api/salidas/${data.id}`); 
+      router.refresh(); 
       toast.success('Salida eliminada.');
     } catch (error) {
       toast.error('Algo ha ido mal al eliminar la salida.');
@@ -66,8 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
-            //@ts-ignore
-            onClick={() => onOpen('editarSalida', { salida })}
+            onClick={() => router.push(`/salidas/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4 " />
             Editar
