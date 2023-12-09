@@ -11,7 +11,7 @@ const PaginaInicialGrupo = async ({
     },
   });
 
-  return <div>Grupo: {grupo?.name}</div>;
+  return <div></div>;
 };
 
 export default PaginaInicialGrupo;
