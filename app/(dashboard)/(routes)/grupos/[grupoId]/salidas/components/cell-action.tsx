@@ -21,10 +21,10 @@ import { SalidaColumn } from './columns';
 
 
 interface CellActionProps {
-  data: SalidaColumn;
+  salida: SalidaColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
   const router = useRouter();
   const params = useParams();
   
@@ -34,7 +34,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/salidas/${data.id}`); 
+      await axios.delete(`/api/salidas/${salida.id}`); 
       router.refresh(); 
       toast.success('Salida eliminada.');
     } catch (error) {
@@ -63,7 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/salidas/${data.id}`)}
+            onClick={() => router.push(`/salidas/${salida.id}`)}
           >
             <Edit className="mr-2 h-4 w-4 " />
             Editar

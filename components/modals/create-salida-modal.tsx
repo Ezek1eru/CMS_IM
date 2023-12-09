@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import * as z from 'zod';
-
+import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -46,7 +46,7 @@ export const CreateSalidaModal = () => {
       name: '',
       descripcion: '',
       lugar: '',
-      fecha: '', 
+      fecha: null,
     },
   });
 
@@ -84,10 +84,44 @@ export const CreateSalidaModal = () => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form 
-            onSubmit={form.handleSubmit(onSubmit)} 
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 w-full py-8">
             <div className="grid grid-cols-1 gap-8 px-10">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nombre</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Nombre de la salida"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="descripcion"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Descripción</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Descripción corta"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="lugar"
@@ -109,14 +143,18 @@ export const CreateSalidaModal = () => {
                 control={form.control}
                 name="fecha"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Fecha</FormLabel>
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Fecha del informe</FormLabel>
                     <FormControl>
-                      <Input
-                        type="date"
-                        disabled={isLoading}
-                        placeholder="Fecha de la salida"
-                        {...field}
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        className="rounded-md border"
+                        disabled={(date) =>
+                          date > new Date() || date < new Date('1900-01-01')
+                        }
+                        initialFocus
                       />
                     </FormControl>
                     <FormMessage />

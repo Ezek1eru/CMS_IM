@@ -29,6 +29,6 @@ export const columns: ColumnDef<SalidaColumn>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />, 
+    cell: ({ row }) => <CellAction salida={row.original} />, 
   },
 ];
