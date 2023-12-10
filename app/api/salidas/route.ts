@@ -6,13 +6,13 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const {name, lugar, fecha, descripcion} = body;
+    const { name, lugar, fecha, descripcion } = body;
 
     if (!name) {
-        return new NextResponse('El Nombre de la salida es necesario', {
-          status: 400,
-        });
-      }
+      return new NextResponse('El Nombre de la salida es necesario', {
+        status: 400,
+      });
+    }
     if (!lugar) {
       return new NextResponse('El lugar de la salida es necesario', {
         status: 400,
@@ -27,16 +27,6 @@ export async function POST(req: Request) {
       return new NextResponse('La descripción de la salida es necesaria', {
         status: 400,
       });
-    }
-
-    const exists = await prismadb.salida.findUnique({
-      where: {
-        name:name
-        },
-    });
-
-    if (exists) {
-      return new NextResponse('La salida ya existe', { status: 400 });
     }
 
     const salida = await prismadb.salida.create({
@@ -57,7 +47,7 @@ export async function POST(req: Request) {
 
 export async function GET(req) {
   try {
-    const salidas = await prismadb.salida.findMany(); 
+    const salidas = await prismadb.salida.findMany();
 
     return NextResponse.json(salidas);
   } catch (error) {
@@ -65,4 +55,3 @@ export async function GET(req) {
     return new NextResponse('Internal error', { status: 500 });
   }
 }
-

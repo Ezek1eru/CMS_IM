@@ -87,6 +87,7 @@ model Informe {
 model Salida {
   id          String   @id @default(uuid())
   name        String
+  lugar       String
   descripcion String
   fecha       DateTime
 
