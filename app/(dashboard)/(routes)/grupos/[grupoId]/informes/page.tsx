@@ -26,9 +26,9 @@ const InformeGrupoPage = async ({
     name: item.name,
     descripcion: item.descripcion,
     grupoId: item.grupoId,
-    fecha: format(new Date(item.fecha), 'MMMM do, yyyy'),
-    createdAt: format(new Date(item.createdAt), 'MMMM do, yyyy'),
-    updatedAt: format(new Date(item.updatedAt), 'MMMM do, yyyy'),
+    fecha: format(new Date(item.fecha), 'MM/dd/yyyy'),
+    createdAt: format(new Date(item.createdAt), 'MM/dd/yyyy'),
+    updatedAt: format(new Date(item.updatedAt), 'MM/dd/yyyy'),
   }));
 
   return (

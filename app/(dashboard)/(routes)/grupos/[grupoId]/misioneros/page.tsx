@@ -36,7 +36,7 @@ const MisionerosGrupoPage = async ({
     carrera: item.carrera,
     numeroTelefono: item.numeroTelefono,
     grupoId: item?.grupoId,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    createdAt: format(item.createdAt, 'MM/dd/yyyy'),
   }));
 
   return (

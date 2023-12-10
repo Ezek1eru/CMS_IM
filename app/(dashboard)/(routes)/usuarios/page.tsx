@@ -23,8 +23,8 @@ const GruposPage = async () => {
     grupo: item.grupo?.name,
     userRole: item.userRole,
     password: item.password,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
-    updatedAt: format(item.updatedAt, 'MMMM do, yyyy'),
+    createdAt: format(item.createdAt, 'MM/dd/yyyy'),
+    updatedAt: format(item.updatedAt, 'MM/dd/yyyy'),
   }));
 
   return (

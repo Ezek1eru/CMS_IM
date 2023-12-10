@@ -12,7 +12,7 @@ const GruposPage = async () => {
   const formattedGrupos: GrupoColumn[] = grupo.map((item) => ({
     id: item.id,
     name: item.name,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    createdAt: format(item.createdAt, 'MM/dd/yyyy'),
   }));
 
   return (

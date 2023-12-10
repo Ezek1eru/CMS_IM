@@ -26,6 +26,7 @@ export const columns: ColumnDef<SalidaColumn>[] = [
   {
     accessorKey: 'fecha',
     header: 'Fecha',
+    
   },
   {
     id: 'actions',
