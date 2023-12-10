@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -17,16 +17,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useModal } from '@/hooks/use-modal-store';
 
-import { SalidaColumn } from './columns';
+import { MisioneroColumn } from './columns';
 
 interface CellActionProps {
-  salida: SalidaColumn;
+  misionero: MisioneroColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
+export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
   const { onOpen } = useModal();
+
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -34,11 +34,11 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/salidas/${salida.id}`);
+      await axios.delete(`/api/misioneros/${misionero.id}`);
       router.refresh();
-      toast.success('Salida eliminada.');
+      toast.success('Misionero eliminado.');
     } catch (error) {
-      toast.error('Algo ha ido mal al eliminar la salida.');
+      toast.error('Algo ha ido mal.');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -63,7 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => onOpen('editarInforme', { salida })}
+            onClick={() => onOpen('editarMisionero', { misionero })}
           >
             <Edit className="mr-2 h-4 w-4 " />
             Editar
@@ -71,10 +71,6 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
             Eliminar
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/salidas/${salida.id}`)}>
-            <Trash className="mr-2 h-4 w-4 " />
-            Asistencias
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
