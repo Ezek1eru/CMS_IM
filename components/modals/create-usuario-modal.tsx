@@ -54,10 +54,10 @@ export const CrearUsuarioModal = () => {
   useEffect(() => {
     const fetchGrupos = async () => {
       try {
-        const response = await axios.get('/api/grupos');
+        const response = await axios.get('/api/usuarios');
         setGrupos(response.data);
       } catch (error) {
-        console.error('Error al obtener los grupos:', error);
+        console.error('Error al obtener los usuarios:', error);
         console.error('Detalles del error:', error.response);
       }
     };
@@ -103,10 +103,10 @@ export const CrearUsuarioModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Crea un nuevo grupo misionero
+            Crea un nuevo usuario
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Crea un nuevo grupo misionero
+          Añade la información necesaria para crear un nuevo usuario
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
