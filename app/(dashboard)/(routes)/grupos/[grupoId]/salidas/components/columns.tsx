@@ -17,7 +17,7 @@ export type SalidaColumn = {
 export const columns: ColumnDef<SalidaColumn>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Nombre',
   },
   {
     accessorKey: 'lugar',

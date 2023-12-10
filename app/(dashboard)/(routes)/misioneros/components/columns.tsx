@@ -22,7 +22,7 @@ export type MisioneroColumn = {
 export const columns: ColumnDef<MisioneroColumn>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Nombre',
   },
   {
     accessorKey: 'apellido',

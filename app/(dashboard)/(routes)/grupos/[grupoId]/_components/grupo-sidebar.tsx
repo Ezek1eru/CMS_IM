@@ -85,7 +85,7 @@ const GrupoSidebar = ({ name }: GrupoSidebarProps) => {
                 onClick={() => signOut()}
               >
                 <LogOut className="mr-2 h-4 w-4" />
-                <span>Logout</span>
+                <span>Salir</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

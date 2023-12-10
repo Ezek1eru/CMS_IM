@@ -6,7 +6,7 @@ import { signIn, signOut } from 'next-auth/react';
 export const LoginButton = () => {
   return (
     <Button onClick={() => signIn()} variant="ghost">
-      Login
+      Iniciar Sesión
     </Button>
   );
 };
@@ -14,7 +14,7 @@ export const LoginButton = () => {
 export const LogOutButton = () => {
   return (
     <Button onClick={() => signOut()} variant="destructive">
-      LogOut
+      Cerrar Sesión
     </Button>
   );
 };

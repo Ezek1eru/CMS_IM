@@ -61,7 +61,7 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => onOpen('editarMisionero', { misionero })}
           >
@@ -70,7 +70,7 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
-            Delete
+            Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

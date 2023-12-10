@@ -26,7 +26,7 @@ export const Navbar = () => {
             {isLoggedIn ? (
               <Link href="/">Dashboard</Link>
             ) : (
-              <Link href="/api/auth/signin">Login</Link>
+              <Link href="/api/auth/signin">Iniciar Sesión</Link>
             )}
           </Button>
         </div>

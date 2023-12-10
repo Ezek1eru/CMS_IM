@@ -8,6 +8,7 @@ export type GrupoColumn = {
   name: string;
   misioneroId: string;
   userId: string;
+  informeId: string;
   updatedAt: Date;
   createdAt: Date;
 };
