@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { name, lugar, fecha, descripcion } = body;
+    const { name, lugar, fecha, descripcion, grupoId } = body;
 
     if (!name) {
       return new NextResponse('El Nombre de la salida es necesario', {
@@ -28,6 +28,11 @@ export async function POST(req: Request) {
         status: 400,
       });
     }
+    if (!grupoId) {
+      return new NextResponse('GrupoId es necesario', {
+        status: 400,
+      });
+    }
 
     const salida = await prismadb.salida.create({
       data: {
@@ -35,6 +40,7 @@ export async function POST(req: Request) {
         lugar,
         fecha,
         descripcion,
+        grupoId,
       },
     });
 
