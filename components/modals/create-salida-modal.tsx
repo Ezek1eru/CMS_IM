@@ -22,7 +22,7 @@ import { Input } from '@/components/ui/input';
 import { useModal } from '@/hooks/use-modal-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import * as z from 'zod';
@@ -32,9 +32,11 @@ const formSchema = z.object({
   descripcion: z.string().min(2),
   lugar: z.string().min(2),
   fecha: z.date(),
+  grupoId: z.string(),
 });
 
 export const CreateSalidaModal = () => {
+  const { grupoId } = useParams();
   const { isOpen, onClose, type } = useModal();
   const router = useRouter();
 
@@ -47,6 +49,7 @@ export const CreateSalidaModal = () => {
       descripcion: '',
       lugar: '',
       fecha: null,
+      grupoId: grupoId,
     },
   });
 
@@ -147,7 +150,7 @@ export const CreateSalidaModal = () => {
                 name="fecha"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Fecha del informe</FormLabel>
+                    <FormLabel>Fecha de la salida</FormLabel>
                     <FormControl>
                       <Calendar
                         mode="single"
