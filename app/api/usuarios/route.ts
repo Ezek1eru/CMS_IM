@@ -23,9 +23,7 @@ export async function POST(req: Request) {
     if (!password) {
       return new NextResponse('La contraseña es necesaria', { status: 400 });
     }
-    // if (!userRole) {
-    //   return new NextResponse("El rol del usuario es necesario", { status: 400 });
-    // }
+
     if (!grupoId) {
       return new NextResponse('El grupo del usuario es necesario', {
         status: 400,
@@ -49,7 +47,6 @@ export async function POST(req: Request) {
         name,
         email,
         password: hashpassword,
-        //userRole,
         grupoId,
       },
     });

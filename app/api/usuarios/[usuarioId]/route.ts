@@ -46,9 +46,7 @@ export async function PATCH(
     if (!password) {
       return new NextResponse('La contraseña es necesaria', { status: 400 });
     }
-    /*if (!userRole) {
-            return new NextResponse("El rol del usuario es necesario", { status: 400 });
-          }*/
+
     if (!grupoId) {
       return new NextResponse('Grupo id es necesario', { status: 400 });
     }
@@ -65,7 +63,6 @@ export async function PATCH(
         name,
         email,
         password,
-        //userRole,
         grupoId,
       },
     });
