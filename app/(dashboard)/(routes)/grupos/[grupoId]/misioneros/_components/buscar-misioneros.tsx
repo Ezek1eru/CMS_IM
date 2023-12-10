@@ -1,6 +1,5 @@
 'use client';
 
-import prismadb from '@/lib/prismadb';
 import axios from 'axios';
 import { Plus } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';

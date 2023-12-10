@@ -1,8 +1,8 @@
 'use client';
 
 import axios from 'axios';
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -56,7 +56,7 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open Menu</span>
+            <span className="sr-only">Abrir Menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>

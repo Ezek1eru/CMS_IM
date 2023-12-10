@@ -1,5 +1,4 @@
 import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
 
 import Navbar from '@/components/Navbar';
 import { Providers } from '@/components/providers/providers';

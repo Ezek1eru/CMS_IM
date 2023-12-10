@@ -1,5 +1,5 @@
 const PromptCard = ({ post }) => {
-  const { id, name, descripcion, fecha, grupoId, createdAt, updatedAt } = post;
+  const { name, descripcion, fecha } = post;
 
   const formattedFecha = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',

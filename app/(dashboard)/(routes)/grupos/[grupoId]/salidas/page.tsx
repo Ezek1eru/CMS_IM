@@ -1,5 +1,7 @@
 import { format } from 'date-fns';
+
 import prismadb from '@/lib/prismadb';
+
 import { SalidaClient } from './components/client';
 import { SalidaColumn } from './components/columns';
 
@@ -13,14 +15,14 @@ const SalidasPage = async ({
   const salidas = await prismadb.salida.findMany({
     where: {
       grupoId: params.grupoId,
-  },
-  include: {
-    grupo: true,
-  },
-  orderBy: {
-    createdAt: 'desc',
-  },
-});
+    },
+    include: {
+      grupo: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
 
   const formattedSalidas: SalidaColumn[] = salidas.map((item) => ({
     id: item.id,
@@ -28,7 +30,7 @@ const SalidasPage = async ({
     descripcion: item.descripcion,
     lugar: item.lugar,
     grupoId: item?.grupoId,
-    misioneroId: item?.misioneroId,
+    misioneroId: item?.misoneroId,
     fecha: format(new Date(item.fecha), 'MMMM do, yyyy HH:mm'),
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
     updatedAt: format(new Date(item.updatedAt), 'MMMM do, yyyy'),

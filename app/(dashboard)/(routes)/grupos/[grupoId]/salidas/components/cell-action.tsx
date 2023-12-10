@@ -1,10 +1,12 @@
 'use client';
 
 import axios from 'axios';
+import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
+import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -14,11 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { AlertModal } from '@/components/modals/alert-modal';
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useModal } from '@/hooks/use-modal-store';
 import { SalidaColumn } from './columns';
-
 
 interface CellActionProps {
   salida: SalidaColumn;
@@ -27,15 +25,15 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
   const router = useRouter();
   const params = useParams();
-  
+
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/salidas/${salida.id}`); 
-      router.refresh(); 
+      await axios.delete(`/api/salidas/${salida.id}`);
+      router.refresh();
       toast.success('Salida eliminada.');
     } catch (error) {
       toast.error('Algo ha ido mal al eliminar la salida.');

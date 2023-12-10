@@ -1,10 +1,8 @@
 'use client';
-import { useEffect, useState } from 'react';
 
 import { ROLE } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
-import { group } from 'console';
-import { GrupoClient } from '../../grupos/components/client';
+
 import { CellAction } from './cell-action';
 
 export type UsuarioColumn = {

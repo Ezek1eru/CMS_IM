@@ -2,7 +2,6 @@
 
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
-import qs from 'query-string';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -17,8 +16,7 @@ import {
 
 import { AlertModal } from '@/components/modals/alert-modal';
 import { useModal } from '@/hooks/use-modal-store';
-import { group } from 'console';
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { MoreHorizontal, Trash } from 'lucide-react';
 import { MisioneroColumn } from './columns';
 
 interface CellActionProps {

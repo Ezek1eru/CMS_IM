@@ -1,8 +1,8 @@
 'use client';
 
 import axios from 'axios';
-import { Copy, Edit, Link, MoreHorizontal, Trash } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { Edit, Link, MoreHorizontal, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -17,7 +17,6 @@ import {
 
 import { AlertModal } from '@/components/modals/alert-modal';
 import { useModal } from '@/hooks/use-modal-store';
-import { GrupoConMisioneros } from '@/type';
 
 import { GrupoColumn } from './columns';
 

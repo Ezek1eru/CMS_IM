@@ -1,11 +1,9 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
@@ -17,9 +15,6 @@ interface MisioneroClientProps {
 }
 
 export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
-  const router = useRouter();
-  const params = useParams();
-
   const { onOpen } = useModal();
 
   return (
