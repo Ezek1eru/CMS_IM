@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
 export async function GET(req) {
   try {
-    const informes = await prismadb.informe.findMany(); // Obtener la lista de grupos
+    const informes = await prismadb.informe.findMany(); 
 
     return NextResponse.json(informes);
   } catch (error) {
