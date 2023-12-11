@@ -12,6 +12,7 @@ export type SalidaColumn = {
   grupoId: string;
   misioneroId: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<SalidaColumn>[] = [

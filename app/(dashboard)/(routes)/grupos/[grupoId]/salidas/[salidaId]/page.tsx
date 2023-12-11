@@ -1,20 +1,24 @@
 import { format } from 'date-fns';
-
 import prismadb from '@/lib/prismadb';
-
 import { MisioneroClient } from './components/client';
 import { MisioneroColumn } from './components/columns';
 
-const salidasPage = async () => {
+const MisionerosSalidasPage = async ({
+  params,
+}: {
+  params: {
+    salidaId: string; 
+  };
+}) => {
   const misioneros = await prismadb.misionero.findMany({
-    include: {
-      grupo: true,
+    where: {
+      salidaId: params.salidaId, 
     },
     orderBy: {
       createdAt: 'desc',
     },
   });
-  //@ts-ignore
+
   const formattedMisionero: MisioneroColumn[] = misioneros.map((item) => ({
     id: item.id,
     name: item.name,
@@ -26,8 +30,8 @@ const salidasPage = async () => {
     numeroDocumento: item.numeroDocumento,
     carrera: item.carrera,
     numeroTelefono: item.numeroTelefono,
-    grupoId: item?.grupoId,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    salidaId: item.salidaId,
+    createdAt: format(item.createdAt, 'MM/dd/yyyy'),
   }));
 
   return (
@@ -39,4 +43,4 @@ const salidasPage = async () => {
   );
 };
 
-export default salidasPage;
+export default MisionerosSalidasPage;

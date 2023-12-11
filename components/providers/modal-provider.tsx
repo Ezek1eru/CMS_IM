@@ -12,6 +12,7 @@ import { CreateSalidaModal } from '@/components/modals/create-salida-modal';
 import { EditGrupoModal } from '@/components/modals/edit-grupo-modal';
 import { EditarUsuarioModal } from '@/components/modals/edit-usuario-modal';
 import { EditarInformeModal } from '@/components/modals/editar-informe-modal';
+import { EditarSalidaModal } from '@/components/modals/editar-salida-modal';
 import { EditarMisioneroModal } from '@/components/modals/editar-misionero-modal';
 
 export const ModalProvider = () => {
@@ -35,6 +36,7 @@ export const ModalProvider = () => {
       <EditarUsuarioModal />
       <CrearInformeModal />
       <EditarInformeModal />
+      <EditarSalidaModal />
       <AgregarMisioneroModal />
     </>
   );

@@ -15,8 +15,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useModal } from '@/hooks/use-modal-store';
 
+import { useModal } from '@/hooks/use-modal-store';
 import { SalidaColumn } from './columns';
 
 interface CellActionProps {
@@ -25,8 +25,8 @@ interface CellActionProps {
 
 export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
   const { onOpen } = useModal();
+  
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -63,7 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => onOpen('editarInforme', { salida })}
+            onClick={() => onOpen('editarSalida', { salida })}
           >
             <Edit className="mr-2 h-4 w-4 " />
             Editar

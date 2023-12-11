@@ -11,8 +11,10 @@ export type ModalType =
   | 'editarUsuario'
   | 'crearInforme'
   | 'editarInforme'
+  | 'editarSalida'
   | 'crearSalida'
   | 'agregarMisionero';
+
     
 
 interface ModalData {

@@ -2,28 +2,6 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 
-export async function GET(
-  req: Request,
-  { params }: { params: { salidaId: string } }
-) {
-  try {
-    if (!params.salidaId) {
-      return new NextResponse('Id de la salida es necesario', { status: 400 });
-    }
-
-    const salida = await prismadb.salida.findUnique({
-      where: {
-        id: params.salidaId,
-      },
-    });
-
-    return NextResponse.json(salida);
-  } catch (error) {
-    console.log('[SALIDA_GET]', error);
-    return new NextResponse('Error interno', { status: 500 });
-  }
-}
-
 export async function PATCH(
   req: Request,
   { params }: { params: { salidaId: string } }
@@ -33,25 +11,40 @@ export async function PATCH(
 
     const {name, lugar, fecha, descripcion} = body;
 
-    if (name || !lugar || !fecha || !descripcion) {
-      return new NextResponse('Todos los campos son necesarios', {
+    if (!name) {
+      return new NextResponse('Nombre de la salida es necesario', {
         status: 400,
       });
     }
 
+    if (!descripcion) {
+      return new NextResponse('Descripcion de la salida es necesario', {
+        status: 400,
+      });
+    }
+    if (!lugar) {
+      return new NextResponse('lugar de la salida es necesario', {
+        status: 400,
+      });
+    }
+    if (!fecha) {
+      return new NextResponse('Fecha de la salida es necesario', {
+        status: 400,
+      });
+    }
     if (!params.salidaId) {
-      return new NextResponse('Id de la salida es necesario', { status: 400 });
+      return new NextResponse('Salida Id es necesario', { status: 400 });
     }
 
-    const salida = await prismadb.salida.updateMany({
+    const salida = await prismadb.salida.update({
       where: {
         id: params.salidaId,
       },
       data: {
         name,
+        descripcion,
         lugar,
         fecha,
-        descripcion,
       },
     });
 

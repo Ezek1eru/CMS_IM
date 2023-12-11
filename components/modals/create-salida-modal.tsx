@@ -89,7 +89,7 @@ export const CreateSalidaModal = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 w-full py-6 px-6"
+            className="space-y-8 w-full py-8 px-6"
           >
             <div className="flex justify-between">
               <div className="flex-1 flex-col pr-3">

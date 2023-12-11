@@ -14,10 +14,8 @@ export type MisioneroColumn = {
   numeroDocumento: string;
   carrera: string;
   numeroTelefono: string;
-  grupoId: string;
-  salidaId?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  salidaId: string;
+  createdAt: string;
 };
 
 export const columns: ColumnDef<MisioneroColumn>[] = [
