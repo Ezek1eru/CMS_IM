@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 export const middleware = withAuth(
   function middleware(req) {
     try {
-      // Check if req.nextauth.token exists before accessing properties
       if (!req.nextauth.token) {
         const shouldRedirect = !req.url.includes('/landing');
 
