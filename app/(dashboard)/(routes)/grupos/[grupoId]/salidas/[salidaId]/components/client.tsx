@@ -26,7 +26,7 @@ export const MisioneroClientSalida: React.FC<MisioneroClientProps> = ({
           title={`Misioneros (${data.length})`}
           description="Administra los misioneros"
         />
-        <Button onClick={() => onOpen('crearMisionero')}>
+        <Button onClick={() => onOpen('agregarMisinoeroSalida')}>
           <Plus className="mr-2 h-4 w-4" />
           Añadir
         </Button>

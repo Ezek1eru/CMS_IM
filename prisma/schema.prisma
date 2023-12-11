@@ -58,7 +58,7 @@ model Misionero {
   grupos Grupo[] @relation("MisioneroToGrupo")
 
   salidaId String?
-  salida   Salida? @relation("MisionerosToSalida", fields: [salidaId], references: [id])
+  salida   Salida? @relation("MisionerosToSalida", fields: [salidaId], references: [id]) // Un misionero pertenece a una salida
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -91,14 +91,12 @@ model Salida {
   grupoId String?
   grupo   Grupo?  @relation("SalidaToGrupo", fields: [grupoId], references: [id])
 
-  misoneroId String?
   misioneros Misionero[] @relation("MisionerosToSalida")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([grupoId])
-  @@index([misoneroId])
 }
 
 enum ROLE {
