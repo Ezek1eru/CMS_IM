@@ -8,13 +8,15 @@ import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 import { useModal } from '@/hooks/use-modal-store';
-import { MisioneroColumn, columns } from './columns';
+import { MisioneroColumnSalida, columns } from './columns';
 
 interface MisioneroClientProps {
-  data: MisioneroColumn[];
+  data: MisioneroColumnSalida[];
 }
 
-export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
+export const MisioneroClientSalida: React.FC<MisioneroClientProps> = ({
+  data,
+}) => {
   const { onOpen } = useModal();
 
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import { Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { Edit, List, MoreHorizontal, Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -24,6 +24,7 @@ interface CellActionProps {
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
+  const { grupoId } = useParams();
   const { onOpen } = useModal();
 
   const router = useRouter();
@@ -74,9 +75,11 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
             Eliminar
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/salidas/${salida.id}`)}
+            onClick={() =>
+              router.push(`/grupos/${grupoId}/salidas/${salida.id}`)
+            }
           >
-            <Trash className="mr-2 h-4 w-4 " />
+            <List className="mr-2 h-4 w-4 " />
             Asistencias
           </DropdownMenuItem>
         </DropdownMenuContent>
