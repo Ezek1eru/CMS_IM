@@ -51,7 +51,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     try {
       await axios.patch(`/api/grupos/${grupoId}`, {
         name: groupName,
-        removeMisionero: data.id,
+        disconnectMisionero: data.id,
       });
 
       setRemovedMissionary(data.id);

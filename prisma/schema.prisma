@@ -27,8 +27,7 @@ model Grupo {
   id   String @id @default(uuid())
   name String @unique
 
-  misioneroId String?
-  misioneros  Misionero[] @relation("MisioneroToGrupo")
+  misioneros Misionero[] @relation("MisioneroToGrupo")
 
   usuarios User[]  @relation("UserToGrupo")
   userId   String?
@@ -56,8 +55,7 @@ model Misionero {
   carrera         String
   numeroTelefono  String
 
-  grupoId String?
-  grupo   Grupo?  @relation("MisioneroToGrupo", fields: [grupoId], references: [id])
+  grupos Grupo[] @relation("MisioneroToGrupo")
 
   salidaId String?
   salida   Salida? @relation("MisionerosToSalida", fields: [salidaId], references: [id])
@@ -65,7 +63,6 @@ model Misionero {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([grupoId])
   @@index([salidaId])
 }
 

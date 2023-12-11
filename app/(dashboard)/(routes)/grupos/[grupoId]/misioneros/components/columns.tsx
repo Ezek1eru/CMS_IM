@@ -14,7 +14,6 @@ export type MisioneroColumn = {
   numeroDocumento: string;
   carrera: string;
   numeroTelefono: string;
-  grupoId: string;
   createdAt: string;
 };
 
