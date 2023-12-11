@@ -15,8 +15,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useModal } from '@/hooks/use-modal-store';
 
+import { Checkbox } from '@/components/ui/checkbox';
 import { MisioneroColumn } from './columns';
-import { Checkbox } from "@/components/ui/checkbox"
 interface CellActionProps {
   misionero: MisioneroColumn;
 }
@@ -26,7 +26,6 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  
 
   const [asistenciaTomada, setAsistenciaTomada] = useState(false);
 
@@ -47,7 +46,6 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
   const handleAsistenciaChange = () => {
     setAsistenciaTomada(!asistenciaTomada);
   };
-  
 
   return (
     <>
@@ -61,7 +59,7 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
         <Checkbox
           checked={asistenciaTomada}
           onChange={handleAsistenciaChange}
-          label="Tomar asistencia"
+          placeholder="Tomar asistencia"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -73,6 +71,7 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Acciones</DropdownMenuLabel>
             <DropdownMenuItem
+              //@ts-ignore
               onClick={() => onOpen('editarMisionero', { misionero })}
             >
               <Edit className="mr-2 h-4 w-4 " />

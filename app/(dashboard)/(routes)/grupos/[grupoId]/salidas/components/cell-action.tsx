@@ -25,7 +25,7 @@ interface CellActionProps {
 
 export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
   const { onOpen } = useModal();
-  
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -63,6 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
+            //@ts-ignore
             onClick={() => onOpen('editarSalida', { salida })}
           >
             <Edit className="mr-2 h-4 w-4 " />
@@ -72,7 +73,9 @@ export const CellAction: React.FC<CellActionProps> = ({ salida }) => {
             <Trash className="mr-2 h-4 w-4 " />
             Eliminar
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push(`/salidas/${salida.id}`)}>
+          <DropdownMenuItem
+            onClick={() => router.push(`/salidas/${salida.id}`)}
+          >
             <Trash className="mr-2 h-4 w-4 " />
             Asistencias
           </DropdownMenuItem>

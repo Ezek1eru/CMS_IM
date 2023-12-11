@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
 import prismadb from '@/lib/prismadb';
+import { format } from 'date-fns';
 import { MisioneroClient } from './components/client';
 import { MisioneroColumn } from './components/columns';
 
@@ -7,12 +7,12 @@ const MisionerosSalidasPage = async ({
   params,
 }: {
   params: {
-    salidaId: string; 
+    salidaId: string;
   };
 }) => {
   const misioneros = await prismadb.misionero.findMany({
     where: {
-      salidaId: params.salidaId, 
+      salidaId: params.salidaId,
     },
     orderBy: {
       createdAt: 'desc',
@@ -32,6 +32,7 @@ const MisionerosSalidasPage = async ({
     numeroTelefono: item.numeroTelefono,
     salidaId: item.salidaId,
     createdAt: format(item.createdAt, 'MM/dd/yyyy'),
+    updatedAt: format(item.updatedAt, 'MM/dd/yyyy'),
   }));
 
   return (
