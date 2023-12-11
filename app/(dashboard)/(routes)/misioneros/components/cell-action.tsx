@@ -1,8 +1,8 @@
 'use client';
 
 import axios from 'axios';
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -31,11 +31,6 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success('Misionero Id copiado al portapapeles.');
-  };
-
   const onDelete = async () => {
     try {
       setLoading(true);
@@ -61,25 +56,21 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open Menu</span>
+            <span className="sr-only">Abrir Menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => onOpen('editarMisionero', { misionero })}
           >
             <Edit className="mr-2 h-4 w-4 " />
             Editar
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(misionero.id)}>
-            <Copy className="mr-2 h-4 w-4 " />
-            Copy Id
-          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
-            Delete
+            Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

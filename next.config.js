@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    serverRuntimeConfig: {
-        
-    }
-}
+  serverRuntimeConfig: {},
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

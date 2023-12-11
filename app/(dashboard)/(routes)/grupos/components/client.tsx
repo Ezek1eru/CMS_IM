@@ -1,7 +1,6 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
@@ -18,8 +17,6 @@ interface GrupoClientProps {
 export const GrupoClient: React.FC<GrupoClientProps> = ({ data }) => {
   const { onOpen } = useModal();
 
-  const router = useRouter();
-  const params = useParams();
   return (
     <>
       <div className="flex items-center justify-between ">
@@ -30,7 +27,7 @@ export const GrupoClient: React.FC<GrupoClientProps> = ({ data }) => {
 
         <Button onClick={() => onOpen('createGrupo')}>
           <Plus className="mr-2 h-4 w-4" />
-          Add new
+          Añadir
         </Button>
       </div>
       <Separator />

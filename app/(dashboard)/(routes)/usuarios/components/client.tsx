@@ -1,7 +1,6 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
@@ -27,7 +26,7 @@ export const UserClient: React.FC<UsuarioProps> = ({ data }) => {
         />
         <Button onClick={() => onOpen('crearUsuario')}>
           <Plus className="mr-2 h-4 w-4" />
-          Add new
+          Añadir
         </Button>
       </div>
       <Separator />

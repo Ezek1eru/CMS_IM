@@ -8,6 +8,7 @@ export type GrupoColumn = {
   name: string;
   misioneroId: string;
   userId: string;
+  informeId: string;
   updatedAt: Date;
   createdAt: Date;
 };
@@ -15,11 +16,11 @@ export type GrupoColumn = {
 export const columns: ColumnDef<GrupoColumn>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Nombre',
   },
   {
     accessorKey: 'createdAt',
-    header: 'Date',
+    header: 'Creado',
   },
   {
     id: 'actions',

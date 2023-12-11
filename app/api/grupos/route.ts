@@ -25,4 +25,15 @@ export async function POST(
     console.log('[GRUPOS_POST]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
+}
+
+export async function GET(req) {
+  try {
+    const grupos = await prismadb.grupo.findMany(); // Obtener la lista de grupos
+
+    return NextResponse.json(grupos);
+  } catch (error) {
+    console.error('[GRUPOS_GET]', error);
+    return new NextResponse('Internal error', { status: 500 });
+  }
 };

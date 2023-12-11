@@ -14,10 +14,14 @@ const MisionerosGrupoPage = async ({
 }) => {
   const misioneros = await prismadb.misionero.findMany({
     where: {
-      grupoId: params.grupoId,
+      grupos: {
+        some: {
+          id: params.grupoId,
+        },
+      },
     },
     include: {
-      grupo: true,
+      grupos: true,
     },
     orderBy: {
       createdAt: 'desc',
@@ -35,8 +39,7 @@ const MisionerosGrupoPage = async ({
     numeroDocumento: item.numeroDocumento,
     carrera: item.carrera,
     numeroTelefono: item.numeroTelefono,
-    grupoId: item?.grupoId,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    createdAt: format(item.createdAt, 'MM/dd/yyyy'),
   }));
 
   return (

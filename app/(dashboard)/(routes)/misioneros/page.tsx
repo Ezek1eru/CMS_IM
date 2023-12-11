@@ -8,13 +8,13 @@ import { MisioneroColumn } from './components/columns';
 const GruposPage = async () => {
   const misioneros = await prismadb.misionero.findMany({
     include: {
-      grupo: true,
+      grupos: true,
     },
     orderBy: {
       createdAt: 'desc',
     },
   });
-
+  //@ts-ignore
   const formattedMisionero: MisioneroColumn[] = misioneros.map((item) => ({
     id: item.id,
     name: item.name,
@@ -26,8 +26,7 @@ const GruposPage = async () => {
     numeroDocumento: item.numeroDocumento,
     carrera: item.carrera,
     numeroTelefono: item.numeroTelefono,
-    grupoId: item?.grupoId,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    createdAt: format(item.createdAt, 'MM/dd/yyyy'),
   }));
 
   return (

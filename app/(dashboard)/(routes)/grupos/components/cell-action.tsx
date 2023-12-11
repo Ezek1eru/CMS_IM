@@ -1,8 +1,8 @@
 'use client';
 
 import axios from 'axios';
-import { Copy, Edit, Link, MoreHorizontal, Trash } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { Edit, Link, MoreHorizontal, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -17,7 +17,6 @@ import {
 
 import { AlertModal } from '@/components/modals/alert-modal';
 import { useModal } from '@/hooks/use-modal-store';
-import { GrupoConMisioneros } from '@/type';
 
 import { GrupoColumn } from './columns';
 
@@ -29,15 +28,9 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
   const { onOpen } = useModal();
 
   const router = useRouter();
-  const params = useParams();
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success('Grupo Id copied to clipboard');
-  };
 
   const onDelete = async () => {
     try {
@@ -64,7 +57,7 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open Menu</span>
+            <span className="sr-only">Abrir Menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
@@ -76,7 +69,7 @@ export const CellAction: React.FC<CellActionProps> = ({ grupo }) => {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 " />
-            Delete
+            Eliminar
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => router.push(`/grupos/${grupo.id}`)}>
             <Link className="mr-2 h-4 w-4 " />

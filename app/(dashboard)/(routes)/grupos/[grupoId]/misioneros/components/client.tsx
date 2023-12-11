@@ -1,14 +1,12 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { useModal } from '@/hooks/use-modal-store';
 import { MisioneroColumn, columns } from './columns';
 
@@ -17,9 +15,6 @@ interface MisioneroClientProps {
 }
 
 export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
-  const router = useRouter();
-  const params = useParams();
-
   const { onOpen } = useModal();
 
   return (
@@ -30,13 +25,13 @@ export const MisioneroClient: React.FC<MisioneroClientProps> = ({ data }) => {
           description="Administra los misioneros"
         />
         <div className="space-x-2">
-          <Button onClick={() => onOpen('añadirMisionero')}>
+          <Button onClick={() => onOpen('agregarMisionero')}>
             <Plus className="mr-2 h-4 w-4" />
-            Añadir
+            Añadir Misionero
           </Button>
           <Button onClick={() => onOpen('crearMisionero')}>
             <Plus className="mr-2 h-4 w-4" />
-            Add new
+            Crear Misionero
           </Button>
         </div>
       </div>

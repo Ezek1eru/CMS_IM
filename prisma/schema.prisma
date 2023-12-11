@@ -8,15 +8,15 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  userRole  ROLE     @default(USER)
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  userRole ROLE   @default(USER)
 
-  grupoId   String?
-  grupo     Grupo?   @relation("UserToGrupo", fields: [grupoId], references: [id])
-  
+  grupoId String?
+  grupo   Grupo?  @relation("UserToGrupo", fields: [grupoId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -24,23 +24,27 @@ model User {
 }
 
 model Grupo {
-  id          String      @id @default(uuid())
-  name        String      @unique
-  
-  misioneroId String?
-  misioneros  Misionero[] @relation("MisioneroToGrupo")
-  
-  usuarios    User[]      @relation("UserToGrupo")
-  userId      String?
+  id   String @id @default(uuid())
+  name String @unique
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  misioneros Misionero[] @relation("MisioneroToGrupo")
+
+  usuarios User[]  @relation("UserToGrupo")
+  userId   String?
+
+  informes  Informe[] @relation("InformeToGrupo")
+  informeId String?
+
+  salidas Salida[] @relation("SalidaToGrupo")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }
 
 model Misionero {
-  id              String   @id @default(uuid())
+  id              String @id @default(uuid())
   name            String
   apellido        String
   email           String
@@ -51,13 +55,50 @@ model Misionero {
   carrera         String
   numeroTelefono  String
 
-  grupoId         String?
-  grupo           Grupo?   @relation("MisioneroToGrupo", fields: [grupoId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  grupos Grupo[] @relation("MisioneroToGrupo")
+
+  salidaId String?
+  salida   Salida? @relation("MisionerosToSalida", fields: [salidaId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([salidaId])
+}
+
+model Informe {
+  id          String   @id @default(uuid())
+  name        String
+  descripcion String
+  fecha       DateTime
+
+  grupoId String?
+  grupo   Grupo?  @relation("InformeToGrupo", fields: [grupoId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([grupoId])
+}
+
+model Salida {
+  id          String   @id @default(uuid())
+  name        String
+  lugar       String
+  descripcion String
+  fecha       DateTime
+
+  grupoId String?
+  grupo   Grupo?  @relation("SalidaToGrupo", fields: [grupoId], references: [id])
+
+  misoneroId String?
+  misioneros Misionero[] @relation("MisionerosToSalida")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([grupoId])
+  @@index([misoneroId])
 }
 
 enum ROLE {

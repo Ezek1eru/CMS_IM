@@ -1,16 +1,29 @@
-// import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { withAuth } from 'next-auth/middleware';
-import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+
 export const middleware = withAuth(
-  // `withAuth` augments your `Request` with the user's token.
   function middleware(req) {
-    // @ts-ignore
-    if (!req.nextauth.token) {
-      return NextResponse.redirect(new URL('/login', req.url));
-    }
-    if (req.nextauth.token.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL(`/grupos/${req.nextauth.token.groupId}`, req.url));
+    try {
+      // Check if req.nextauth.token exists before accessing properties
+      if (!req.nextauth.token) {
+        const shouldRedirect = !req.url.includes('/landing');
+
+        if (shouldRedirect) {
+          return NextResponse.redirect(new URL('/landing', req.url));
+        }
+      } else if (req.nextauth.token.role !== 'ADMIN') {
+        const shouldRedirect = !req.url.includes('/grupos/');
+
+        if (shouldRedirect) {
+          const groupId = req.nextauth.token.groupId || '';
+
+          return NextResponse.redirect(new URL(`/grupos/${groupId}/`, req.url));
+        }
+      }
+
+      return NextResponse.next();
+    } catch (error) {
+      console.error(error);
     }
   },
   {
@@ -19,20 +32,7 @@ export const middleware = withAuth(
     },
   }
 );
-// // This function can be marked `async` if using `await` inside
-// export async function middleware(request: NextRequest) {
-//   console.log('hola a');
-// const session = await getServerSession(authOptions);
-// if (!session) {
-//   return NextResponse.redirect(new URL('/login', request.url));
-// }
-// if (session.user.role === 'ADMIN') {
-//   return NextResponse.redirect(new URL('/', request.url));
-// }
-// }
 
-// // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|!login|!grupos).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|!landing).*)'],
 };
-// export default function middleware() {}

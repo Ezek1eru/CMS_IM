@@ -1,0 +1,78 @@
+import { NextResponse } from 'next/server';
+
+import prismadb from '@/lib/prismadb';
+
+export async function PATCH(
+  req: Request,
+  { params }: { params: { salidaId: string } }
+) {
+  try {
+    const body = await req.json();
+
+    const {name, lugar, fecha, descripcion} = body;
+
+    if (!name) {
+      return new NextResponse('Nombre de la salida es necesario', {
+        status: 400,
+      });
+    }
+
+    if (!descripcion) {
+      return new NextResponse('Descripcion de la salida es necesario', {
+        status: 400,
+      });
+    }
+    if (!lugar) {
+      return new NextResponse('lugar de la salida es necesario', {
+        status: 400,
+      });
+    }
+    if (!fecha) {
+      return new NextResponse('Fecha de la salida es necesario', {
+        status: 400,
+      });
+    }
+    if (!params.salidaId) {
+      return new NextResponse('Salida Id es necesario', { status: 400 });
+    }
+
+    const salida = await prismadb.salida.update({
+      where: {
+        id: params.salidaId,
+      },
+      data: {
+        name,
+        descripcion,
+        lugar,
+        fecha,
+      },
+    });
+
+    return NextResponse.json(salida);
+  } catch (error) {
+    console.log('[SALIDA_PATCH]', error);
+    return new NextResponse('Error interno del servidor', { status: 500 });
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { salidaId: string } }
+) {
+  try {
+    if (!params.salidaId) {
+      return new NextResponse('Id de la salida es necesario', { status: 400 });
+    }
+
+    const salida = await prismadb.salida.deleteMany({
+      where: {
+        id: params.salidaId,
+      },
+    });
+
+    return NextResponse.json(salida);
+  } catch (error) {
+    console.log('SALIDA_DELETE', error);
+    return new NextResponse('Error interno', { status: 500 });
+  }
+}

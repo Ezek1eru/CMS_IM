@@ -15,6 +15,7 @@ export type MisioneroColumn = {
   carrera: string;
   numeroTelefono: string;
   grupoId: string;
+  salidaId?: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -22,7 +23,7 @@ export type MisioneroColumn = {
 export const columns: ColumnDef<MisioneroColumn>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Nombre',
   },
   {
     accessorKey: 'apellido',

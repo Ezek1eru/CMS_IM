@@ -14,14 +14,13 @@ export type MisioneroColumn = {
   numeroDocumento: string;
   carrera: string;
   numeroTelefono: string;
-  grupoId: string;
   createdAt: string;
 };
 
 export const columns: ColumnDef<MisioneroColumn>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: 'Nombre',
   },
   {
     accessorKey: 'apellido',

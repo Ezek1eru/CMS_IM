@@ -18,16 +18,13 @@ const GruposPage = async () => {
   const formattedUsuario: UsuarioColumn[] = users.map((item) => ({
     id: item.id,
     name: item.name,
-    //apellido: item.apellido,
     email: item.email,
-    //numeroAlumno: item.numeroAlumno,
-    //edad: item.edad,
-    //tipoDocumento: item.tipoDocumento,
-    //numeroDocumento: item.numeroDocumento,
-    //carrera: item.carrera,
-    //numeroTelefono: item.numeroTelefono,
     grupoId: item?.grupoId,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    grupo: item.grupo?.name,
+    userRole: item.userRole,
+    password: item.password,
+    createdAt: format(item.createdAt, 'MM/dd/yyyy'),
+    updatedAt: format(item.updatedAt, 'MM/dd/yyyy'),
   }));
 
   return (
