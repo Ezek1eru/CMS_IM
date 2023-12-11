@@ -16,6 +16,7 @@ export type MisioneroColumn = {
   numeroTelefono: string;
   salidaId: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<MisioneroColumn>[] = [

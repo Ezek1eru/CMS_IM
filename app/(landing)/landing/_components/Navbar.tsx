@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-
-import { Button } from '@/components/ui/button';
 import { Globe2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+
+import { Button } from '@/components/ui/button';
 
 export const Navbar = () => {
   const session = useSession();

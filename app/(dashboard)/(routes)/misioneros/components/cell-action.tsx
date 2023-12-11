@@ -63,6 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuItem
+            //@ts-ignore
             onClick={() => onOpen('editarMisionero', { misionero })}
           >
             <Edit className="mr-2 h-4 w-4 " />
