@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+const { hash } = require('credentials');
 
 import prismadb from '@/lib/prismadb';
 
@@ -55,6 +56,8 @@ export async function PATCH(
       return new NextResponse('User Id is required', { status: 400 });
     }
 
+    const hashpassword = await hash(password);
+
     const user = await prismadb.user.updateMany({
       where: {
         id: params.usuarioId,
@@ -62,7 +65,7 @@ export async function PATCH(
       data: {
         name,
         email,
-        password,
+        password: hashpassword,
         grupoId,
       },
     });
