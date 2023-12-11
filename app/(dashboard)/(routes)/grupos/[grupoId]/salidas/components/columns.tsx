@@ -1,7 +1,7 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { CellAction } from './cell-action'; 
+import { CellAction } from './cell-action';
 
 export type SalidaColumn = {
   id: string;
@@ -10,7 +10,6 @@ export type SalidaColumn = {
   lugar: string;
   fecha: string;
   grupoId: string;
-  misioneroId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -27,10 +26,9 @@ export const columns: ColumnDef<SalidaColumn>[] = [
   {
     accessorKey: 'fecha',
     header: 'Fecha',
-    
   },
   {
     id: 'actions',
-    cell: ({ row }) => <CellAction salida={row.original} />, 
+    cell: ({ row }) => <CellAction salida={row.original} />,
   },
 ];
