@@ -93,10 +93,10 @@ export const EditarSalidaModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden max-w-3xl">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Crear Salida
+            Editar Salida
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Añade la información necesaria para crear una nueva salida.
+            Modifica la información necesaria para editar la salida.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -181,7 +181,7 @@ export const EditarSalidaModal = () => {
             </div>
             <DialogFooter className="px-6 py-4">
               <Button disabled={isLoading} className="ml-auto" type="submit">
-                Crear
+                Editar
               </Button>
             </DialogFooter>
           </form>
