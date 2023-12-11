@@ -1,5 +1,3 @@
-'use client';
-
 import axios from 'axios';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -18,18 +16,19 @@ import {
 import { useModal } from '@/hooks/use-modal-store';
 
 import { MisioneroColumn } from './columns';
-
+import { Checkbox } from "@/components/ui/checkbox"
 interface CellActionProps {
   misionero: MisioneroColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
   const { onOpen } = useModal();
-
   const router = useRouter();
-
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  
+
+  const [asistenciaTomada, setAsistenciaTomada] = useState(false);
 
   const onDelete = async () => {
     try {
@@ -45,6 +44,11 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
     }
   };
 
+  const handleAsistenciaChange = () => {
+    setAsistenciaTomada(!asistenciaTomada);
+  };
+  
+
   return (
     <>
       <AlertModal
@@ -53,27 +57,34 @@ export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {
         onConfirm={onDelete}
         loading={loading}
       />
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Abrir Menu</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => onOpen('editarMisionero', { misionero })}
-          >
-            <Edit className="mr-2 h-4 w-4 " />
-            Editar
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="mr-2 h-4 w-4 " />
-            Eliminar
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="flex items-center">
+        <Checkbox
+          checked={asistenciaTomada}
+          onChange={handleAsistenciaChange}
+          label="Tomar asistencia"
+        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Abrir Menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => onOpen('editarMisionero', { misionero })}
+            >
+              <Edit className="mr-2 h-4 w-4 " />
+              Editar
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setOpen(true)}>
+              <Trash className="mr-2 h-4 w-4 " />
+              Eliminar
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </>
   );
 };
