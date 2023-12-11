@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 
 import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,10 +16,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useModal } from '@/hooks/use-modal-store';
 
-import { Checkbox } from '@/components/ui/checkbox';
-import { MisioneroColumn } from './columns';
+import { MisioneroColumnSalida } from './columns';
+
 interface CellActionProps {
-  misionero: MisioneroColumn;
+  misionero: MisioneroColumnSalida;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ misionero }) => {

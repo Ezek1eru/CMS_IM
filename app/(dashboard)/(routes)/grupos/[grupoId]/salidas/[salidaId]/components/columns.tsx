@@ -3,7 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { CellAction } from './cell-action';
 
-export type MisioneroColumn = {
+export type MisioneroColumnSalida = {
   id: string;
   name: string;
   apellido: string;
@@ -19,7 +19,7 @@ export type MisioneroColumn = {
   updatedAt: string;
 };
 
-export const columns: ColumnDef<MisioneroColumn>[] = [
+export const columns: ColumnDef<MisioneroColumnSalida>[] = [
   {
     accessorKey: 'name',
     header: 'Nombre',
