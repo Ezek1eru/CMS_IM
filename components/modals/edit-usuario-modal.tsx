@@ -82,8 +82,17 @@ export const EditarUsuarioModal = () => {
       form.setValue('name', usuario.name);
       form.setValue('email', usuario.email);
       form.setValue('grupoId', usuario.grupoId);
+      form.setValue('password', usuario.password);
     }
-  });
+  }, [usuario, form]);
+
+  useEffect(() => {
+    const selectedGrupoId = form.watch('grupoId');
+
+    if (form.getValues('grupoId') !== selectedGrupoId) {
+      form.setValue('grupoId', selectedGrupoId);
+    }
+  }, [form]);
 
   const isLoading = form.formState.isSubmitting;
 
